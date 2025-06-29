@@ -1,0 +1,16 @@
+import 'package:architectures/ui/home/controller/home_controller.dart';
+import 'package:flutter/material.dart';
+
+class HomeWidget extends StatefulWidget {
+  const HomeWidget({super.key});
+
+  @override
+  State<HomeWidget> createState() => _HomeWidgetState();
+}
+
+class _HomeWidgetState extends State<HomeWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold();
+  }
+}

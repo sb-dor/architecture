@@ -4,7 +4,6 @@ import 'package:architectures/data/repositories/booking/booking_repository.dart'
 import 'package:architectures/data/repositories/user_repository/user_repository.dart';
 import 'package:architectures/models/booking_summary.dart';
 import 'package:architectures/models/user.dart';
-import 'package:architectures/utils/command.dart';
 import 'package:flutter/foundation.dart';
 
 class HomeController extends ChangeNotifier {
@@ -12,10 +11,7 @@ class HomeController extends ChangeNotifier {
     required BookingRepository bookingRepository,
     required UserRepository userRepository,
   }) : _bookingRepository = bookingRepository,
-       _userRepository = userRepository {
-    load = Command0(_load);
-    deleteBooking = Command1(_deleteBooking);
-  }
+       _userRepository = userRepository;
 
   final BookingRepository _bookingRepository;
   final UserRepository _userRepository;
@@ -23,9 +19,6 @@ class HomeController extends ChangeNotifier {
   User? _user;
 
   User? get user => _user;
-
-  late Command0 load;
-  late Command1<void, int> deleteBooking;
 
   /// Items in an [UnmodifiableListView] can't be directly modified,
   /// but changes in the source list can be modified. Since _bookings
@@ -39,7 +32,7 @@ class HomeController extends ChangeNotifier {
 
   String? get error => _error;
 
-  Future<void> _load() async {
+  Future<void> load() async {
     try {
       _user = await _userRepository.user();
       _bookingSummary = await _bookingRepository.getBookingsList();
@@ -51,7 +44,7 @@ class HomeController extends ChangeNotifier {
     }
   }
 
-  Future<void> _deleteBooking(int id) async {
+  Future<void> deleteBooking(int id) async {
     try {
       await _bookingRepository.delete(id);
       _bookingSummary = await _bookingRepository.getBookingsList();

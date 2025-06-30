@@ -4,6 +4,6 @@ import 'package:architectures/models/user.dart';
 final class UserRemoteService implements UserService {
   @override
   Future<User?> user() async {
-    return User();
+    return User(name: '', picture: '');
   }
 }

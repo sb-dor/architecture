@@ -20,7 +20,7 @@ class _HomeWidgetState extends State<HomeWidget> {
   void initState() {
     super.initState();
     _homeController = DependenciesScope.of(context).homeController;
-    _homeController.load.execute();
+    _homeController.load();
   }
 
   @override
@@ -41,7 +41,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                       booking: _homeController.bookingSummary[index],
                       onTap: () {},
                       confirmDismiss: (DismissDirection direction) async {
-                        await _homeController.deleteBooking.execute(
+                        await _homeController.deleteBooking(
                           (_homeController.bookingSummary[index].id),
                         );
                         return true;

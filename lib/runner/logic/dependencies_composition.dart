@@ -16,7 +16,9 @@ Future<DependencyContainer> composeDependencies() async {
 }
 
 BookingRepository bookingRepositoryFactory() {
-  final BookingService bookingRemoteService = BookingRemoteService();
+  final mainUrl = const String.fromEnvironment("MAIN_URL");
+  print("main url is: ${mainUrl}");
+  final BookingService bookingRemoteService = BookingRemoteService(mainUrl: mainUrl);
   final BookingService bookingLocalService = BookingLocalService();
   final internetConnectionCheckerHelper = InternetConnectionCheckerHelper();
 

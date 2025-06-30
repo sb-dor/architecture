@@ -20,7 +20,7 @@ class _HomeWidgetState extends State<HomeWidget> {
   void initState() {
     super.initState();
     _homeController = DependenciesScope.of(context).homeController;
-    _homeController.load();
+    _homeController.load.execute();
   }
 
   @override
@@ -40,7 +40,12 @@ class _HomeWidgetState extends State<HomeWidget> {
                     return _Booking(
                       booking: _homeController.bookingSummary[index],
                       onTap: () {},
-                      confirmDismiss: (DismissDirection direction) async {},
+                      confirmDismiss: (DismissDirection direction) async {
+                        await _homeController.deleteBooking.execute(
+                          (_homeController.bookingSummary[index].id),
+                        );
+                        return true;
+                      },
                     );
                   },
                 ),
@@ -54,11 +59,7 @@ class _HomeWidgetState extends State<HomeWidget> {
 }
 
 class _Booking extends StatelessWidget {
-  const _Booking({
-    required this.booking,
-    required this.onTap,
-    required this.confirmDismiss,
-  });
+  const _Booking({required this.booking, required this.onTap, required this.confirmDismiss});
 
   final BookingSummary booking;
   final GestureTapCallback onTap;

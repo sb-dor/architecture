@@ -1,7 +1,11 @@
 import 'dart:developer';
+import 'package:architectures/data/repositories/auth/auth_repository.dart';
 import 'package:architectures/data/repositories/booking/booking_repository.dart';
 import 'package:architectures/data/repositories/continent/continent_repository.dart';
 import 'package:architectures/data/repositories/user_repository/user_repository.dart';
+import 'package:architectures/data/services/auth/auth_local_service.dart';
+import 'package:architectures/data/services/auth/auth_remote_service.dart';
+import 'package:architectures/data/services/auth/auth_service.dart';
 import 'package:architectures/data/services/booking/booking_local_service.dart';
 import 'package:architectures/data/services/booking/booking_remote_service.dart';
 import 'package:architectures/data/services/booking/booking_service.dart';
@@ -13,11 +17,31 @@ import 'package:architectures/data/services/user_services/user_remote_service.da
 import 'package:architectures/data/services/user_services/user_service.dart';
 import 'package:architectures/runner/models/dependency_container.dart';
 import 'package:architectures/ui/home/controller/home_controller.dart';
+import 'package:architectures/ui/logout/controllers/logout_controller.dart';
+import 'package:architectures/ui/search_from/controller/search_form_controller.dart';
 import 'package:architectures/utils/internet_connection_checker_helper.dart';
 
 Future<DependencyContainer> composeDependencies() async {
-  final dependencyContainer = DependencyContainer(homeController: homeControllerFactory());
+  final dependencyContainer = DependencyContainer(
+    homeController: homeControllerFactory(),
+    logoutController: logoutController(),
+    searchFormController: searchFormController(),
+  );
   return dependencyContainer;
+}
+
+// if it's necessary somewhere else
+
+AuthRepository authRepository() {
+  final mainUrl = const String.fromEnvironment("MAIN_URL");
+  final AuthService authRemoteService = AuthRemoteService(mainUrl: mainUrl);
+  final AuthService authLocalService = AuthLocalService();
+  final internetConnectionCheckerHelper = InternetConnectionCheckerHelper();
+  return AuthRepositoryImpl(
+    authRemoteService: authRemoteService,
+    authLocalService: authLocalService,
+    internetConnectionCheckerHelper: internetConnectionCheckerHelper,
+  );
 }
 
 // if it's necessary somewhere else
@@ -53,13 +77,21 @@ ContinentRepository continentRepository() {
   final mainUrl = const String.fromEnvironment("MAIN_URL");
   final ContinentService continentRemoteService = ContinentRemoteService(mainUrl: mainUrl);
   final ContinentService continentLocalService = ContinentLocalService();
-  final internetConnectionChecker = InternetConnectionCheckerHelper();
+  final internetConnectionCheckerHelper = InternetConnectionCheckerHelper();
 
   return ContinentRepositoryImpl(
     continentRemoteService: continentRemoteService,
     continentLocalService: continentLocalService,
-    internetConnectionCheckerHelper: internetConnectionChecker,
+    internetConnectionCheckerHelper: internetConnectionCheckerHelper,
   );
+}
+
+LogoutController logoutController() {
+  return LogoutController(authRepository: authRepository());
+}
+
+SearchFormController searchFormController() {
+  return SearchFormController(continentRepository: continentRepository());
 }
 
 HomeController homeControllerFactory() {

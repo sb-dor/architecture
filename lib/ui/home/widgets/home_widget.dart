@@ -3,6 +3,7 @@ import 'package:architectures/runner/widgets/dependencies_scope.dart';
 import 'package:architectures/ui/common/themes/colors.dart';
 import 'package:architectures/ui/common/themes/dimens.dart';
 import 'package:architectures/ui/home/controller/home_controller.dart';
+import 'package:architectures/ui/home/widgets/home_title_widget.dart';
 import 'package:architectures/ui/search_from/widgets/search_form_widget.dart';
 import 'package:architectures/utils/date_format_start_end.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,6 @@ class _HomeWidgetState extends State<HomeWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
-        // Workaround for https://github.com/flutter/flutter/issues/115358#issuecomment-2117157419
         heroTag: null,
         key: const ValueKey(bookingButtonKey),
         onPressed:
@@ -48,7 +48,15 @@ class _HomeWidgetState extends State<HomeWidget> {
           builder: (context, child) {
             return CustomScrollView(
               slivers: [
-                SliverToBoxAdapter(),
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: Dimens.of(context).paddingScreenVertical,
+                      horizontal: Dimens.of(context).paddingScreenHorizontal,
+                    ),
+                    child: HomeTitleWidget(),
+                  ),
+                ),
                 SliverList.builder(
                   itemCount: _homeController.bookingSummary.length,
                   itemBuilder: (context, index) {

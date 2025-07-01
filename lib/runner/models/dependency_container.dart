@@ -1,9 +1,19 @@
 import 'package:architectures/ui/home/controller/home_controller.dart';
+import 'package:architectures/ui/logout/controllers/logout_controller.dart';
+import 'package:architectures/ui/search_from/controller/search_form_controller.dart';
 
 class DependencyContainer {
-  DependencyContainer({required this.homeController});
+  DependencyContainer({
+    required this.homeController,
+    required this.searchFormController,
+    required this.logoutController,
+  });
 
   final HomeController homeController;
+
+  final SearchFormController searchFormController;
+
+  final LogoutController logoutController;
 }
 
 /// A special version of [DependenciesContainer] that is used in tests.

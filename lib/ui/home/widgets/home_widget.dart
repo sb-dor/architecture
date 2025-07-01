@@ -3,8 +3,11 @@ import 'package:architectures/runner/widgets/dependencies_scope.dart';
 import 'package:architectures/ui/common/themes/colors.dart';
 import 'package:architectures/ui/common/themes/dimens.dart';
 import 'package:architectures/ui/home/controller/home_controller.dart';
+import 'package:architectures/ui/search_from/widgets/search_form_widget.dart';
 import 'package:architectures/utils/date_format_start_end.dart';
 import 'package:flutter/material.dart';
+
+const String bookingButtonKey = 'booking-button';
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({super.key});
@@ -26,6 +29,19 @@ class _HomeWidgetState extends State<HomeWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton.extended(
+        // Workaround for https://github.com/flutter/flutter/issues/115358#issuecomment-2117157419
+        heroTag: null,
+        key: const ValueKey(bookingButtonKey),
+        onPressed:
+            () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => SearchFormWidget()),
+            ),
+        label: Text("Book New Trip"),
+        icon: const Icon(Icons.add_location_outlined),
+      ),
+      appBar: AppBar(title: Text("Home"), scrolledUnderElevation: 0.0, elevation: 0),
       body: SafeArea(
         child: ListenableBuilder(
           listenable: _homeController,
@@ -33,9 +49,8 @@ class _HomeWidgetState extends State<HomeWidget> {
             return CustomScrollView(
               slivers: [
                 SliverToBoxAdapter(),
-                SliverList.separated(
+                SliverList.builder(
                   itemCount: _homeController.bookingSummary.length,
-                  separatorBuilder: (context, index) => SizedBox(height: 10),
                   itemBuilder: (context, index) {
                     return _Booking(
                       booking: _homeController.bookingSummary[index],
@@ -88,7 +103,7 @@ class _Booking extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.symmetric(
             horizontal: Dimens.of(context).paddingScreenHorizontal,
-            vertical: Dimens.paddingVertical,
+            vertical: 10,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

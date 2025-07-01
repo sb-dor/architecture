@@ -1,8 +1,13 @@
+import 'dart:developer';
 import 'package:architectures/data/repositories/booking/booking_repository.dart';
+import 'package:architectures/data/repositories/continent/continent_repository.dart';
 import 'package:architectures/data/repositories/user_repository/user_repository.dart';
 import 'package:architectures/data/services/booking/booking_local_service.dart';
 import 'package:architectures/data/services/booking/booking_remote_service.dart';
 import 'package:architectures/data/services/booking/booking_service.dart';
+import 'package:architectures/data/services/continent/continent_local_service.dart';
+import 'package:architectures/data/services/continent/continent_remote_service.dart';
+import 'package:architectures/data/services/continent/continent_service.dart';
 import 'package:architectures/data/services/user_services/user_local_service.dart';
 import 'package:architectures/data/services/user_services/user_remote_service.dart';
 import 'package:architectures/data/services/user_services/user_service.dart';
@@ -15,9 +20,10 @@ Future<DependencyContainer> composeDependencies() async {
   return dependencyContainer;
 }
 
+// if it's necessary somewhere else
 BookingRepository bookingRepositoryFactory() {
   final mainUrl = const String.fromEnvironment("MAIN_URL");
-  print("main url is: ${mainUrl}");
+  log("main url is: $mainUrl");
   final BookingService bookingRemoteService = BookingRemoteService(mainUrl: mainUrl);
   final BookingService bookingLocalService = BookingLocalService();
   final internetConnectionCheckerHelper = InternetConnectionCheckerHelper();
@@ -29,6 +35,7 @@ BookingRepository bookingRepositoryFactory() {
   );
 }
 
+// if it's necessary somewhere else
 UserRepository userRepositoryFactory() {
   final UserService userRemoteService = UserRemoteService();
   final UserService userLocalService = UserLocalService();
@@ -37,6 +44,20 @@ UserRepository userRepositoryFactory() {
   return UserRepositoryImpl(
     userRemoteService: userRemoteService,
     userLocalService: userLocalService,
+    internetConnectionCheckerHelper: internetConnectionChecker,
+  );
+}
+
+// if it's necessary somewhere else
+ContinentRepository continentRepository() {
+  final mainUrl = const String.fromEnvironment("MAIN_URL");
+  final ContinentService continentRemoteService = ContinentRemoteService(mainUrl: mainUrl);
+  final ContinentService continentLocalService = ContinentLocalService();
+  final internetConnectionChecker = InternetConnectionCheckerHelper();
+
+  return ContinentRepositoryImpl(
+    continentRemoteService: continentRemoteService,
+    continentLocalService: continentLocalService,
     internetConnectionCheckerHelper: internetConnectionChecker,
   );
 }

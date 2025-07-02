@@ -3,7 +3,7 @@ import 'package:architectures/models/booking.dart';
 import 'package:architectures/models/booking_summary.dart';
 import 'package:architectures/utils/internet_connection_checker_helper.dart';
 
-abstract interface class BookingRepository {
+abstract interface class IBookingRepository {
   Future<List<BookingSummary>> getBookingsList();
 
   Future<Booking> getBooking(int id);
@@ -13,15 +13,15 @@ abstract interface class BookingRepository {
   Future<void> delete(int id);
 }
 
-final class BookingRepositoryImpl implements BookingRepository {
+final class BookingRepositoryImpl implements IBookingRepository {
   BookingRepositoryImpl({
     required this.bookingRemoteService,
     required this.bookingLocalService,
     required this.internetConnectionCheckerHelper,
   });
 
-  final BookingService bookingRemoteService;
-  final BookingService bookingLocalService;
+  final IBookingService bookingRemoteService;
+  final IBookingService bookingLocalService;
   final InternetConnectionCheckerHelper internetConnectionCheckerHelper;
 
   @override

@@ -32,10 +32,10 @@ Future<DependencyContainer> composeDependencies() async {
 
 // if it's necessary somewhere else
 
-AuthRepository authRepository() {
+IAuthRepository authRepository() {
   final mainUrl = const String.fromEnvironment("MAIN_URL");
-  final AuthService authRemoteService = AuthRemoteService(mainUrl: mainUrl);
-  final AuthService authLocalService = AuthLocalService();
+  final IAuthService authRemoteService = AuthRemoteService(mainUrl: mainUrl);
+  final IAuthService authLocalService = AuthLocalService();
   final internetConnectionCheckerHelper = InternetConnectionCheckerHelper();
   return AuthRepositoryImpl(
     authRemoteService: authRemoteService,
@@ -45,11 +45,11 @@ AuthRepository authRepository() {
 }
 
 // if it's necessary somewhere else
-BookingRepository bookingRepositoryFactory() {
+IBookingRepository bookingRepositoryFactory() {
   final mainUrl = const String.fromEnvironment("MAIN_URL");
   log("main url is: $mainUrl");
-  final BookingService bookingRemoteService = BookingRemoteService(mainUrl: mainUrl);
-  final BookingService bookingLocalService = BookingLocalService();
+  final IBookingService bookingRemoteService = BookingRemoteService(mainUrl: mainUrl);
+  final IBookingService bookingLocalService = BookingLocalService();
   final internetConnectionCheckerHelper = InternetConnectionCheckerHelper();
 
   return BookingRepositoryImpl(
@@ -60,9 +60,9 @@ BookingRepository bookingRepositoryFactory() {
 }
 
 // if it's necessary somewhere else
-UserRepository userRepositoryFactory() {
-  final UserService userRemoteService = UserRemoteService();
-  final UserService userLocalService = UserLocalService();
+IUserRepository userRepositoryFactory() {
+  final IUserService userRemoteService = UserRemoteService();
+  final IUserService userLocalService = UserLocalService();
   final internetConnectionChecker = InternetConnectionCheckerHelper();
 
   return UserRepositoryImpl(
@@ -73,10 +73,10 @@ UserRepository userRepositoryFactory() {
 }
 
 // if it's necessary somewhere else
-ContinentRepository continentRepository() {
+IContinentRepository continentRepository() {
   final mainUrl = const String.fromEnvironment("MAIN_URL");
-  final ContinentService continentRemoteService = ContinentRemoteService(mainUrl: mainUrl);
-  final ContinentService continentLocalService = ContinentLocalService();
+  final IContinentService continentRemoteService = ContinentRemoteService(mainUrl: mainUrl);
+  final IContinentService continentLocalService = ContinentLocalService();
   final internetConnectionCheckerHelper = InternetConnectionCheckerHelper();
 
   return ContinentRepositoryImpl(

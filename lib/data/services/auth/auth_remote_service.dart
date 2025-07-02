@@ -4,7 +4,7 @@ import 'package:architectures/data/services/auth/auth_service.dart';
 import 'package:architectures/models/user.dart';
 import 'package:http/http.dart' as http;
 
-final class AuthRemoteService implements AuthService {
+final class AuthRemoteService implements IAuthService {
   AuthRemoteService({required this.mainUrl, http.Client? client})
     : _client = client ?? http.Client();
 
@@ -28,7 +28,7 @@ final class AuthRemoteService implements AuthService {
   }
 
   @override
-  Future<void> logout() {
+  Future<bool> logout() {
     // TODO: implement logout
     throw UnimplementedError();
   }

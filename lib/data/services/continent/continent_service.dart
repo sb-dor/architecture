@@ -1,5 +1,5 @@
 import 'package:architectures/models/continent.dart';
 
-abstract interface class ContinentService {
+abstract interface class IContinentService {
   Future<List<Continent>> getContinents();
 }

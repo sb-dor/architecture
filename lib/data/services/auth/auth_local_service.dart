@@ -1,7 +1,7 @@
 import 'package:architectures/data/services/auth/auth_service.dart';
 import 'package:architectures/models/user.dart';
 
-final class AuthLocalService implements AuthService {
+final class AuthLocalService implements IAuthService {
 
 
   @override
@@ -15,7 +15,7 @@ final class AuthLocalService implements AuthService {
   }
 
   @override
-  Future<void> logout() {
+  Future<bool> logout() {
     // TODO: implement logout
     throw UnimplementedError();
   }

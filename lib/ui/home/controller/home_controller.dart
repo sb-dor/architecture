@@ -8,13 +8,13 @@ import 'package:flutter/foundation.dart';
 
 class HomeController extends ChangeNotifier {
   HomeController({
-    required BookingRepository bookingRepository,
-    required UserRepository userRepository,
+    required IBookingRepository bookingRepository,
+    required IUserRepository userRepository,
   }) : _bookingRepository = bookingRepository,
        _userRepository = userRepository;
 
-  final BookingRepository _bookingRepository;
-  final UserRepository _userRepository;
+  final IBookingRepository _bookingRepository;
+  final IUserRepository _userRepository;
 
   User? _user;
 

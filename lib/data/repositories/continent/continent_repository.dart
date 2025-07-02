@@ -2,19 +2,19 @@ import 'package:architectures/data/services/continent/continent_service.dart';
 import 'package:architectures/models/continent.dart';
 import 'package:architectures/utils/internet_connection_checker_helper.dart';
 
-abstract interface class ContinentRepository {
+abstract interface class IContinentRepository {
   Future<List<Continent>> getContinents();
 }
 
-final class ContinentRepositoryImpl implements ContinentRepository {
+final class ContinentRepositoryImpl implements IContinentRepository {
   ContinentRepositoryImpl({
     required this.continentRemoteService,
     required this.continentLocalService,
     required this.internetConnectionCheckerHelper,
   });
 
-  final ContinentService continentRemoteService;
-  final ContinentService continentLocalService;
+  final IContinentService continentRemoteService;
+  final IContinentService continentLocalService;
   final InternetConnectionCheckerHelper internetConnectionCheckerHelper;
 
   @override

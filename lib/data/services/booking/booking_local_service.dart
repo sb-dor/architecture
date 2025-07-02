@@ -2,7 +2,7 @@ import 'package:architectures/data/services/booking/booking_service.dart';
 import 'package:architectures/models/booking.dart';
 import 'package:architectures/models/booking_summary.dart';
 
-final class BookingLocalService implements BookingService {
+final class BookingLocalService implements IBookingService {
   @override
   Future<void> createBooking(Booking booking) {
     // TODO: implement createBooking

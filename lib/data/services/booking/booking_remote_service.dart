@@ -7,7 +7,7 @@ import 'package:architectures/models/booking_summary.dart';
 import 'package:architectures/utils/constants.dart';
 import 'package:http/http.dart' as http;
 
-final class BookingRemoteService implements BookingService {
+final class BookingRemoteService implements IBookingService {
   BookingRemoteService({required this.mainUrl, http.Client? client})
     : _client = client ?? http.Client();
 

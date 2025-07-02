@@ -4,5 +4,5 @@ import 'package:flutter/foundation.dart';
 class SearchFormController extends ChangeNotifier {
   SearchFormController({required this.continentRepository});
 
-  final ContinentRepository continentRepository;
+  final IContinentRepository continentRepository;
 }

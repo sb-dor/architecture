@@ -25,7 +25,7 @@ final class BookingRepositoryImpl implements IBookingRepository {
   final InternetConnectionCheckerHelper internetConnectionCheckerHelper;
 
   @override
-  Future<void> createBooking(Booking booking) async {
+  Future<bool> createBooking(Booking booking) async {
     final hasInternet = await internetConnectionCheckerHelper.hasAccessToInternet();
     if (hasInternet) {
       return bookingRemoteService.createBooking(booking);

@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:architectures/data/repositories/auth/auth_repository.dart';
 import 'package:architectures/data/repositories/booking/booking_repository.dart';
 import 'package:architectures/data/repositories/continent/continent_repository.dart';
+import 'package:architectures/data/repositories/itinerary_config/itinerary_config_repository.dart';
 import 'package:architectures/data/repositories/user_repository/user_repository.dart';
 import 'package:architectures/data/services/auth/auth_local_service.dart';
 import 'package:architectures/data/services/auth/auth_remote_service.dart';
@@ -12,6 +13,7 @@ import 'package:architectures/data/services/booking/booking_service.dart';
 import 'package:architectures/data/services/continent/continent_local_service.dart';
 import 'package:architectures/data/services/continent/continent_remote_service.dart';
 import 'package:architectures/data/services/continent/continent_service.dart';
+import 'package:architectures/data/services/itinerary_config_service/itinerary_config_service.dart';
 import 'package:architectures/data/services/user_services/user_local_service.dart';
 import 'package:architectures/data/services/user_services/user_remote_service.dart';
 import 'package:architectures/data/services/user_services/user_service.dart';
@@ -20,12 +22,14 @@ import 'package:architectures/ui/home/controller/home_controller.dart';
 import 'package:architectures/ui/logout/controllers/logout_controller.dart';
 import 'package:architectures/ui/search_from/controller/search_form_controller.dart';
 import 'package:architectures/utils/internet_connection_checker_helper.dart';
+import 'package:logger/logger.dart';
 
-Future<DependencyContainer> composeDependencies() async {
+Future<DependencyContainer> composeDependencies({required Logger logger}) async {
   final dependencyContainer = DependencyContainer(
     homeController: homeControllerFactory(),
     logoutController: logoutController(),
-    searchFormController: searchFormController(),
+    searchFormController: searchFormController(logger: logger),
+    logger: logger,
   );
   return dependencyContainer;
 }
@@ -86,12 +90,21 @@ IContinentRepository continentRepository() {
   );
 }
 
+IItineraryConfigRepository itineraryConfigRepository() {
+  final IItineraryConfigService iItineraryConfigService = ItineraryConfigServiceImpl();
+  return ItineraryConfigRepositoryImpl(iItineraryConfigService: iItineraryConfigService);
+}
+
 LogoutController logoutController() {
   return LogoutController(authRepository: authRepository());
 }
 
-SearchFormController searchFormController() {
-  return SearchFormController(continentRepository: continentRepository());
+SearchFormController searchFormController({required Logger logger}) {
+  return SearchFormController(
+    continentRepository: continentRepository(),
+    itineraryConfigRepository: itineraryConfigRepository(),
+    logger: logger,
+  );
 }
 
 HomeController homeControllerFactory() {
@@ -99,4 +112,34 @@ HomeController homeControllerFactory() {
     bookingRepository: bookingRepositoryFactory(),
     userRepository: userRepositoryFactory(),
   );
+}
+
+Logger appLogger(LogFilter logFilter) {
+  final logger = Logger(
+    filter: logFilter,
+    printer: PrettyPrinter(
+      methodCount: 2,
+      // Number of method calls to be displayed
+      errorMethodCount: 8,
+      // Number of method calls if stacktrace is provided
+      lineLength: 120,
+
+      colors: true,
+      // Colorful log messages
+      printEmojis: true,
+      // Print an emoji for each log message
+      // Should each log print contain a timestamp
+      dateTimeFormat: DateTimeFormat.onlyTimeAndSinceStart,
+    ),
+    output: ConsoleOutput(),
+  );
+
+  return logger;
+}
+
+final class NoOpLogFilter extends LogFilter {
+  @override
+  bool shouldLog(LogEvent event) {
+    return false;
+  }
 }

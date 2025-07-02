@@ -15,9 +15,13 @@ final class BookingRemoteService implements IBookingService {
   final http.Client _client;
 
   @override
-  Future<void> createBooking(Booking booking) {
-    // TODO: implement createBooking
-    throw UnimplementedError();
+  Future<bool> createBooking(Booking booking) async {
+    final request = await _client.post(Uri.parse('$mainUrl/booking'));
+    if (request.statusCode == 201) {
+      final booking = BookingSummary.fromJson(jsonDecode(request.body));
+      return true;
+    }
+    return false;
   }
 
   @override

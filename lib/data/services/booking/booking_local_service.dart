@@ -4,7 +4,7 @@ import 'package:architectures/models/booking_summary.dart';
 
 final class BookingLocalService implements IBookingService {
   @override
-  Future<void> createBooking(Booking booking) {
+  Future<bool> createBooking(Booking booking) {
     // TODO: implement createBooking
     throw UnimplementedError();
   }

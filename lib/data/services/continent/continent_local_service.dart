@@ -3,8 +3,7 @@ import 'package:architectures/models/continent.dart';
 
 final class ContinentLocalService implements IContinentService {
   @override
-  Future<List<Continent>> getContinents() {
-    // TODO: implement getContinents
-    throw UnimplementedError();
+  Future<List<Continent>> getContinents() async {
+    return <Continent>[];
   }
 }

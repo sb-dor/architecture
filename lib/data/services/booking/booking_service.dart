@@ -6,7 +6,7 @@ abstract interface class IBookingService {
 
   Future<Booking> getBooking(int id);
 
-  Future<void> createBooking(Booking booking);
+  Future<bool> createBooking(Booking booking);
 
   Future<void> delete(int id);
 }

@@ -1,5 +1,6 @@
 class Destination {
   Destination({
+    required this.name,
     required this.ref,
     required this.country,
     required this.continent,
@@ -8,6 +9,7 @@ class Destination {
     required this.imageURL,
   });
 
+  final String name;
   final String ref;
   final String country;
   final String continent;
@@ -16,6 +18,7 @@ class Destination {
   final String imageURL;
 
   factory Destination.fromJson(Map<String, dynamic> json) => Destination(
+    name: (json['name'] ?? json['ref']) as String,
     ref: json['ref'] as String,
     country: json['country'] as String,
     continent: json['continent'] as String,

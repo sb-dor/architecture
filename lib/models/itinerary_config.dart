@@ -36,4 +36,22 @@ class ItineraryConfig {
       'activities': activities,
     };
   }
+
+  ItineraryConfig copyWith({
+    final String? continent,
+    final DateTime? startDate,
+    final DateTime? endDate,
+    final int? guests,
+    final String? destination,
+    final List<String>? activities,
+  }) {
+    return ItineraryConfig(
+      continent: continent ?? this.continent,
+      startDate: startDate ?? this.startDate,
+      endDate: endDate ?? this.endDate,
+      guests: guests ?? this.guests,
+      destination: destination ?? this.destination,
+      activities: activities ?? this.activities,
+    );
+  }
 }

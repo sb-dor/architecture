@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:architectures/data/repositories/auth/auth_repository.dart';
 import 'package:architectures/data/repositories/booking/booking_repository.dart';
 import 'package:architectures/data/repositories/continent/continent_repository.dart';
+import 'package:architectures/data/repositories/destination/destination_repository.dart';
 import 'package:architectures/data/repositories/itinerary_config/itinerary_config_repository.dart';
 import 'package:architectures/data/repositories/user_repository/user_repository.dart';
 import 'package:architectures/data/services/auth/auth_local_service.dart';
@@ -13,6 +14,7 @@ import 'package:architectures/data/services/booking/booking_service.dart';
 import 'package:architectures/data/services/continent/continent_local_service.dart';
 import 'package:architectures/data/services/continent/continent_remote_service.dart';
 import 'package:architectures/data/services/continent/continent_service.dart';
+import 'package:architectures/data/services/destination/destination_service.dart';
 import 'package:architectures/data/services/itinerary_config_service/itinerary_config_service.dart';
 import 'package:architectures/data/services/user_services/user_local_service.dart';
 import 'package:architectures/data/services/user_services/user_remote_service.dart';
@@ -20,6 +22,7 @@ import 'package:architectures/data/services/user_services/user_service.dart';
 import 'package:architectures/runner/models/dependency_container.dart';
 import 'package:architectures/ui/home/controller/home_controller.dart';
 import 'package:architectures/ui/logout/controllers/logout_controller.dart';
+import 'package:architectures/ui/results/controllers/result_controller.dart';
 import 'package:architectures/ui/search_from/controller/search_form_controller.dart';
 import 'package:architectures/utils/internet_connection_checker_helper.dart';
 import 'package:logger/logger.dart';
@@ -28,6 +31,7 @@ Future<DependencyContainer> composeDependencies({required Logger logger}) async 
   final dependencyContainer = DependencyContainer(
     homeController: homeControllerFactory(),
     logoutController: logoutController(),
+    resultController: resultController(logger: logger),
     searchFormController: searchFormController(logger: logger),
     logger: logger,
   );
@@ -111,6 +115,26 @@ HomeController homeControllerFactory() {
   return HomeController(
     bookingRepository: bookingRepositoryFactory(),
     userRepository: userRepositoryFactory(),
+  );
+}
+
+IDestinationRepository destinationRepository() {
+  final IDestinationService destinationRemoteService = DestinationRemoteService();
+  final IDestinationService destinationLocalService = DestinationLocalService();
+  final internetConnectionCheckerHelper = InternetConnectionCheckerHelper();
+
+  return DestinationRepositoryImpl(
+    destinationRemoteService: destinationRemoteService,
+    destinationLocalService: destinationLocalService,
+    internetConnectionCheckerHelper: internetConnectionCheckerHelper,
+  );
+}
+
+ResultController resultController({required Logger logger}) {
+  return ResultController(
+    destinationRepository: destinationRepository(),
+    itineraryConfigRepository: itineraryConfigRepository(),
+    logger: logger,
   );
 }
 

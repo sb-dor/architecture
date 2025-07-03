@@ -4,6 +4,7 @@
 
 import 'package:architectures/runner/widgets/dependencies_scope.dart';
 import 'package:architectures/ui/common/themes/dimens.dart';
+import 'package:architectures/ui/results/widgets/result_widget.dart';
 import 'package:architectures/ui/search_from/controller/search_form_controller.dart';
 import 'package:flutter/material.dart';
 
@@ -55,13 +56,15 @@ class _SearchFormSubmitState extends State<SearchFormSubmit> {
   }
 
   void _onResult() {
+    if (!mounted) return;
     if (_searchFormController.completed) {
-      widget.viewModel.updateItineraryConfig.clearResult();
-      context.go(Routes.results);
+      // _searchFormController.updateItineraryConfig.clearResult();
+      // context.go(Routes.results);
+      Navigator.push(context, MaterialPageRoute(builder: (context) => ResultWidget()));
     }
 
-    if (widget.viewModel.updateItineraryConfig.error) {
-      widget.viewModel.updateItineraryConfig.clearResult();
+    if (_searchFormController.error) {
+      // widget.viewModel.updateItineraryConfig.clearResult();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Error while saving itinerary"),

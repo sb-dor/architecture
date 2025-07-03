@@ -2,8 +2,6 @@ import 'package:architectures/data/services/auth/auth_service.dart';
 import 'package:architectures/models/user.dart';
 
 final class AuthLocalService implements IAuthService {
-
-
   @override
   // TODO: implement isAuthenticated
   Future<bool> get isAuthenticated => throw UnimplementedError();

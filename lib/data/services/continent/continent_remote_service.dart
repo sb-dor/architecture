@@ -5,16 +5,17 @@ import 'package:architectures/models/continent.dart';
 import 'package:http/http.dart' as http;
 
 final class ContinentRemoteService implements IContinentService {
-  ContinentRemoteService({required this.mainUrl, http.Client? client})
-    : _client = client ?? http.Client();
+  ContinentRemoteService({required String mainUrl, http.Client? client})
+    : _mainUrl = mainUrl,
+      _client = client ?? http.Client();
 
+  final String _mainUrl;
   final http.Client _client;
-  final String mainUrl;
 
   @override
   Future<List<Continent>> getContinents() async {
     List<Continent> continents = [];
-    final request = await _client.get(Uri.parse('$mainUrl/continent'));
+    final request = await _client.get(Uri.parse('$_mainUrl/continent'));
     if (request.statusCode == 200) {
       final json = jsonDecode(request.body) as List<dynamic>;
       return continents = json.map((element) => Continent.fromJson(element)).toList();

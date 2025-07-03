@@ -15,52 +15,54 @@ abstract interface class IBookingRepository {
 
 final class BookingRepositoryImpl implements IBookingRepository {
   BookingRepositoryImpl({
-    required this.bookingRemoteService,
-    required this.bookingLocalService,
-    required this.internetConnectionCheckerHelper,
-  });
+    required IBookingService bookingRemoteService,
+    required IBookingService bookingLocalService,
+    required InternetConnectionCheckerHelper internetConnectionCheckerHelper,
+  }) : _bookingRemoteService = bookingRemoteService,
+       _bookingLocalService = bookingLocalService,
+       _internetConnectionCheckerHelper = internetConnectionCheckerHelper;
 
-  final IBookingService bookingRemoteService;
-  final IBookingService bookingLocalService;
-  final InternetConnectionCheckerHelper internetConnectionCheckerHelper;
+  final IBookingService _bookingRemoteService;
+  final IBookingService _bookingLocalService;
+  final InternetConnectionCheckerHelper _internetConnectionCheckerHelper;
 
   @override
   Future<bool> createBooking(Booking booking) async {
-    final hasInternet = await internetConnectionCheckerHelper.hasAccessToInternet();
+    final hasInternet = await _internetConnectionCheckerHelper.hasAccessToInternet();
     if (hasInternet) {
-      return bookingRemoteService.createBooking(booking);
+      return _bookingRemoteService.createBooking(booking);
     } else {
-      return bookingLocalService.createBooking(booking);
+      return _bookingLocalService.createBooking(booking);
     }
   }
 
   @override
   Future<void> delete(int id) async {
-    final hasInternet = await internetConnectionCheckerHelper.hasAccessToInternet();
+    final hasInternet = await _internetConnectionCheckerHelper.hasAccessToInternet();
     if (hasInternet) {
-      return bookingRemoteService.delete(id);
+      return _bookingRemoteService.delete(id);
     } else {
-      return bookingLocalService.delete(id);
+      return _bookingLocalService.delete(id);
     }
   }
 
   @override
   Future<Booking> getBooking(int id) async {
-    final hasInternet = await internetConnectionCheckerHelper.hasAccessToInternet();
+    final hasInternet = await _internetConnectionCheckerHelper.hasAccessToInternet();
     if (hasInternet) {
-      return bookingRemoteService.getBooking(id);
+      return _bookingRemoteService.getBooking(id);
     } else {
-      return bookingLocalService.getBooking(id);
+      return _bookingLocalService.getBooking(id);
     }
   }
 
   @override
   Future<List<BookingSummary>> getBookingsList() async {
-    final hasInternet = await internetConnectionCheckerHelper.hasAccessToInternet();
+    final hasInternet = await _internetConnectionCheckerHelper.hasAccessToInternet();
     if (hasInternet) {
-      return bookingRemoteService.getBookingsList();
+      return _bookingRemoteService.getBookingsList();
     } else {
-      return bookingLocalService.getBookingsList();
+      return _bookingLocalService.getBookingsList();
     }
   }
 }

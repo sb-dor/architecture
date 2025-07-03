@@ -5,11 +5,12 @@ import 'package:architectures/models/user.dart';
 import 'package:http/http.dart' as http;
 
 final class AuthRemoteService implements IAuthService {
-  AuthRemoteService({required this.mainUrl, http.Client? client})
-    : _client = client ?? http.Client();
+  AuthRemoteService({required String mainUrl, http.Client? client})
+    : _mainUrl = mainUrl,
+      _client = client ?? http.Client();
 
   final http.Client _client;
-  final String mainUrl;
+  final String _mainUrl;
 
   @override
   // TODO: implement isAuthenticated
@@ -18,7 +19,7 @@ final class AuthRemoteService implements IAuthService {
   @override
   Future<User?> login({required String email, required String password}) async {
     final request = await _client.post(
-      Uri.parse('$mainUrl/login'),
+      Uri.parse('$_mainUrl/login'),
       body: {"email": email, "password": password},
     );
     if (request.statusCode == 200) {

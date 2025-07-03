@@ -8,21 +8,23 @@ abstract interface class IUserRepository {
 
 final class UserRepositoryImpl implements IUserRepository {
   UserRepositoryImpl({
-    required this.userRemoteService,
-    required this.userLocalService,
-    required this.internetConnectionCheckerHelper,
-  });
+    required IUserService userRemoteService,
+    required IUserService userLocalService,
+    required InternetConnectionCheckerHelper internetConnectionCheckerHelper,
+  }) : _userRemoteService = userRemoteService,
+       _userLocalService = userLocalService,
+       _internetConnectionCheckerHelper = internetConnectionCheckerHelper;
 
-  final IUserService userRemoteService;
-  final IUserService userLocalService;
-  final InternetConnectionCheckerHelper internetConnectionCheckerHelper;
+  final IUserService _userRemoteService;
+  final IUserService _userLocalService;
+  final InternetConnectionCheckerHelper _internetConnectionCheckerHelper;
 
   @override
   Future<User?> user() async {
-    if (await internetConnectionCheckerHelper.hasAccessToInternet()) {
-      return userRemoteService.user();
+    if (await _internetConnectionCheckerHelper.hasAccessToInternet()) {
+      return _userRemoteService.user();
     } else {
-      return userLocalService.user();
+      return _userLocalService.user();
     }
   }
 }

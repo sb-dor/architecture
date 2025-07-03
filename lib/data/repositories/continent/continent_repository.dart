@@ -8,22 +8,24 @@ abstract interface class IContinentRepository {
 
 final class ContinentRepositoryImpl implements IContinentRepository {
   ContinentRepositoryImpl({
-    required this.continentRemoteService,
-    required this.continentLocalService,
-    required this.internetConnectionCheckerHelper,
-  });
+    required IContinentService continentRemoteService,
+    required IContinentService continentLocalService,
+    required InternetConnectionCheckerHelper internetConnectionCheckerHelper,
+  }) : _continentRemoteService = continentRemoteService,
+       _continentLocalService = continentLocalService,
+       _internetConnectionCheckerHelper = internetConnectionCheckerHelper;
 
-  final IContinentService continentRemoteService;
-  final IContinentService continentLocalService;
-  final InternetConnectionCheckerHelper internetConnectionCheckerHelper;
+  final IContinentService _continentRemoteService;
+  final IContinentService _continentLocalService;
+  final InternetConnectionCheckerHelper _internetConnectionCheckerHelper;
 
   @override
   Future<List<Continent>> getContinents() async {
-    final hasInternetConnection = await internetConnectionCheckerHelper.hasAccessToInternet();
+    final hasInternetConnection = await _internetConnectionCheckerHelper.hasAccessToInternet();
     if (hasInternetConnection) {
-      return continentRemoteService.getContinents();
+      return _continentRemoteService.getContinents();
     } else {
-      return continentLocalService.getContinents();
+      return _continentLocalService.getContinents();
     }
   }
 }

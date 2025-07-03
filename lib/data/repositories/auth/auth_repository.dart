@@ -12,14 +12,16 @@ abstract interface class IAuthRepository {
 
 final class AuthRepositoryImpl implements IAuthRepository {
   AuthRepositoryImpl({
-    required this.authRemoteService,
-    required this.authLocalService,
-    required this.internetConnectionCheckerHelper,
-  });
+    required IAuthService authRemoteService,
+    required IAuthService authLocalService,
+    required InternetConnectionCheckerHelper internetConnectionCheckerHelper,
+  }) : _authRemoteService = authRemoteService,
+       _authLocalService = authLocalService,
+       _internetConnectionCheckerHelper = internetConnectionCheckerHelper;
 
-  final IAuthService authRemoteService;
-  final IAuthService authLocalService;
-  final InternetConnectionCheckerHelper internetConnectionCheckerHelper;
+  final IAuthService _authRemoteService;
+  final IAuthService _authLocalService;
+  final InternetConnectionCheckerHelper _internetConnectionCheckerHelper;
 
   @override
   // TODO: implement isAuthenticated
@@ -27,21 +29,21 @@ final class AuthRepositoryImpl implements IAuthRepository {
 
   @override
   Future<User?> login({required String email, required String password}) async {
-    final hasInternetAccess = await internetConnectionCheckerHelper.hasAccessToInternet();
+    final hasInternetAccess = await _internetConnectionCheckerHelper.hasAccessToInternet();
     if (hasInternetAccess) {
-      return authRemoteService.login(email: email, password: password);
+      return _authRemoteService.login(email: email, password: password);
     } else {
-      return authLocalService.login(email: email, password: password);
+      return _authLocalService.login(email: email, password: password);
     }
   }
 
   @override
   Future<bool> logout() async {
-    final hasInternetAccess = await internetConnectionCheckerHelper.hasAccessToInternet();
+    final hasInternetAccess = await _internetConnectionCheckerHelper.hasAccessToInternet();
     if (hasInternetAccess) {
-      return authRemoteService.logout();
+      return _authRemoteService.logout();
     } else {
-      return authLocalService.logout();
+      return _authLocalService.logout();
     }
   }
 }

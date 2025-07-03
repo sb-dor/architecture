@@ -8,15 +8,16 @@ import 'package:architectures/utils/constants.dart';
 import 'package:http/http.dart' as http;
 
 final class BookingRemoteService implements IBookingService {
-  BookingRemoteService({required this.mainUrl, http.Client? client})
-    : _client = client ?? http.Client();
+  BookingRemoteService({required String mainUrl, http.Client? client})
+    : _mainUrl = mainUrl,
+      _client = client ?? http.Client();
 
-  final String mainUrl;
+  final String _mainUrl;
   final http.Client _client;
 
   @override
   Future<bool> createBooking(Booking booking) async {
-    final request = await _client.post(Uri.parse('$mainUrl/booking'));
+    final request = await _client.post(Uri.parse('$_mainUrl/booking'));
     if (request.statusCode == 201) {
       final booking = BookingSummary.fromJson(jsonDecode(request.body));
       return true;
@@ -39,7 +40,7 @@ final class BookingRemoteService implements IBookingService {
   @override
   Future<List<BookingSummary>> getBookingsList() async {
     final request = await _client.get(
-      Uri.parse("$mainUrl/booking"),
+      Uri.parse("$_mainUrl/booking"),
       headers: {HttpHeaders.authorizationHeader: "Bearer ${Constants.token}"},
     );
     if (request.statusCode == 200) {

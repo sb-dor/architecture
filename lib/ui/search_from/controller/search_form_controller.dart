@@ -1,6 +1,7 @@
 import 'package:architectures/data/repositories/continent/continent_repository.dart';
 import 'package:architectures/data/repositories/itinerary_config/itinerary_config_repository.dart';
 import 'package:architectures/models/continent.dart';
+import 'package:architectures/models/itinerary_config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
@@ -23,6 +24,9 @@ class SearchFormController extends ChangeNotifier {
   String? _selectedContinent;
   DateTimeRange? _dateRange;
   int _guests = 0;
+  bool running = false;
+  bool error = false;
+  bool completed = false;
 
   /// True if the form is valid and can be submitted
   bool get valid => _guests > 0 && _selectedContinent != null && _dateRange != null;
@@ -73,45 +77,44 @@ class SearchFormController extends ChangeNotifier {
   /// Load the list of continents and current itinerary config.
 
   Future<void> load() async {
-    final result = await _continentRepository.getContinents();
-    await _loadItineraryConfig();
+    try {
+      running = true;
+      error = false;
+      completed = false;
+      notifyListeners();
+      await _continentRepository.getContinents();
+      completed = true;
+    } catch (error, stackTrace) {
+      await loadItineraryConfig();
+      this.error = true;
+      Error.throwWithStackTrace(error, stackTrace);
+    } finally {
+      running = false;
+      notifyListeners();
+    }
   }
 
   Future<void> loadContinents() async {
-    final result = await _continentRepository.getContinents();
-    switch (result) {
-      case Ok():
-        _continents = result.value;
-        _logger.log(Level.debug, 'Continents (${_continents.length}) loaded');
-      case Error():
-        _logger.log(Level.debug, 'Failed to load continents', result.error);
-    }
+    _continents = await _continentRepository.getContinents();
+
+    _logger.log(Level.debug, 'Continents (${_continents.length}) loaded');
+
     notifyListeners();
-    return result;
   }
 
-  Future<void> _loadItineraryConfig() async {
-    final result = await _itineraryConfigRepository.getItineraryConfig();
-    switch (result) {
-      case Ok<ItineraryConfig>():
-        final itineraryConfig = result.value;
-        _selectedContinent = itineraryConfig.continent;
-        if (itineraryConfig.startDate != null && itineraryConfig.endDate != null) {
-          _dateRange = DateTimeRange(
-            start: itineraryConfig.startDate!,
-            end: itineraryConfig.endDate!,
-          );
-        }
-        _guests = itineraryConfig.guests ?? 0;
-        _log.fine('ItineraryConfig loaded');
-        notifyListeners();
-      case Error<ItineraryConfig>():
-        _log.warning('Failed to load stored ItineraryConfig', result.error);
+  Future<void> loadItineraryConfig() async {
+    final itineraryConfig = await _itineraryConfigRepository.getItineraryConfig();
+
+    _selectedContinent = itineraryConfig.continent;
+    if (itineraryConfig.startDate != null && itineraryConfig.endDate != null) {
+      _dateRange = DateTimeRange(start: itineraryConfig.startDate!, end: itineraryConfig.endDate!);
     }
-    return result;
+    _guests = itineraryConfig.guests ?? 0;
+    _logger.log(Level.debug, 'ItineraryConfig loaded');
+    notifyListeners();
   }
 
-  Future<void> _updateItineraryConfig() async {
+  Future<void> updateItineraryConfig() async {
     assert(valid, "called when valid was false");
     final result = await _itineraryConfigRepository.setItineraryConfig(
       ItineraryConfig(
@@ -121,12 +124,5 @@ class SearchFormController extends ChangeNotifier {
         guests: _guests,
       ),
     );
-    switch (result) {
-      case Ok<void>():
-        _log.fine('ItineraryConfig saved');
-      case Error<void>():
-        _log.warning('Failed to store ItineraryConfig', result.error);
-    }
-    return result;
   }
 }

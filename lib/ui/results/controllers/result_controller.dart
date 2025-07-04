@@ -28,19 +28,32 @@ class ResultController extends ChangeNotifier {
 
   ItineraryConfig get config => _itineraryConfig ?? ItineraryConfig();
 
-  Future<void> search() async {
-    // Load current itinerary config
-    _itineraryConfig = await _itineraryConfigRepository.getItineraryConfig();
-    _logger.log(Level.debug, 'Failed to load stored ItineraryConfig');
-    notifyListeners();
+  bool searching = false;
 
+  bool completed = false;
+
+  Future<void> getDestinations() async {
     final result = await _destinationRepository.getDestinations();
     _destinations =
         result
             .where((destination) => destination.continent == _itineraryConfig!.continent)
             .toList();
     _logger.log(Level.debug, 'Destinations (${_destinations.length}) loaded');
+    notifyListeners();
+  }
 
+  Future<void> search() async {
+    if (searching) return;
+    searching = true;
+    completed = false;
+    notifyListeners();
+    // Load current itinerary config
+    _itineraryConfig = await _itineraryConfigRepository.getItineraryConfig();
+    _logger.log(Level.debug, 'Failed to load stored ItineraryConfig');
+    notifyListeners();
+
+    searching = false;
+    completed = true;
     // After finish loading results, notify the view
     notifyListeners();
   }

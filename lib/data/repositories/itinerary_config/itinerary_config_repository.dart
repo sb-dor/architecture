@@ -14,14 +14,9 @@ final class ItineraryConfigRepositoryImpl implements IItineraryConfigRepository 
   final IItineraryConfigService _iItineraryConfigService;
 
   @override
-  Future<ItineraryConfig> getItineraryConfig() {
-    // TODO: implement getItineraryConfig
-    throw UnimplementedError();
-  }
+  Future<ItineraryConfig> getItineraryConfig() => _iItineraryConfigService.getItineraryConfig();
 
   @override
-  Future<void> setItineraryConfig(ItineraryConfig itineraryConfig) {
-    // TODO: implement setItineraryConfig
-    throw UnimplementedError();
-  }
+  Future<void> setItineraryConfig(ItineraryConfig itineraryConfig) =>
+      _iItineraryConfigService.setItineraryConfig(itineraryConfig);
 }

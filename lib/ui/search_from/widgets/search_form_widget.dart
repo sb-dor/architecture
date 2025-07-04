@@ -1,5 +1,7 @@
+import 'package:architectures/runner/widgets/dependencies_scope.dart';
 import 'package:architectures/ui/common/themes/dimens.dart';
 import 'package:architectures/ui/common/ui/app_search_bar.dart';
+import 'package:architectures/ui/search_from/controller/search_form_controller.dart';
 import 'package:architectures/ui/search_from/widgets/search_form_continent_widget.dart';
 import 'package:architectures/ui/search_from/widgets/search_form_guests.dart';
 import 'package:architectures/ui/search_from/widgets/search_form_submit.dart';
@@ -15,6 +17,15 @@ class SearchFormWidget extends StatefulWidget {
 }
 
 class _SearchFormWidgetState extends State<SearchFormWidget> {
+  late final SearchFormController _searchFormController;
+
+  @override
+  void initState() {
+    super.initState();
+    _searchFormController = DependenciesScope.of(context).searchFormController;
+    _searchFormController.loadContinents();
+  }
+
   @override
   Widget build(BuildContext context) {
     return PopScope(

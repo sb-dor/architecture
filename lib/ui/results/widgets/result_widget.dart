@@ -20,6 +20,7 @@ class _ResultWidgetState extends State<ResultWidget> {
   void initState() {
     super.initState();
     _resultController = DependenciesScope.of(context).resultController;
+    _resultController.getDestinations();
     // widget.viewModel.updateItineraryConfig.addListener(_onResult);
   }
 
@@ -34,24 +35,14 @@ class _ResultWidgetState extends State<ResultWidget> {
         body: ListenableBuilder(
           listenable: _resultController,
           builder: (context, child) {
-            if (widget.viewModel.search.completed) {
+            if (_resultController.completed) {
               return child!;
             }
             return Column(
               children: [
-                _AppSearchBar(widget: widget),
-                if (widget.viewModel.search.running)
+                _AppSearchBar(resultController: _resultController),
+                if (_resultController.searching)
                   const Expanded(child: Center(child: CircularProgressIndicator())),
-                if (widget.viewModel.search.error)
-                  Expanded(
-                    child: Center(
-                      child: ErrorIndicator(
-                        title: "Error while loading destinations",
-                        label: "Try again",
-                        onPressed: _resultController.search,
-                      ),
-                    ),
-                  ),
               ],
             );
           },
@@ -74,19 +65,19 @@ class _ResultWidgetState extends State<ResultWidget> {
     );
   }
 
-  void _onResult() {
-    if (widget.viewModel.updateItineraryConfig.completed) {
-      widget.viewModel.updateItineraryConfig.clearResult();
-      context.go(Routes.activities);
-    }
-
-    if (widget.viewModel.updateItineraryConfig.error) {
-      widget.viewModel.updateItineraryConfig.clearResult();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(AppLocalization.of(context).errorWhileSavingItinerary)),
-      );
-    }
-  }
+  // void _onResult() {
+  //   if (widget.viewModel.updateItineraryConfig.completed) {
+  //     widget.viewModel.updateItineraryConfig.clearResult();
+  //     context.go(Routes.activities);
+  //   }
+  //
+  //   if (widget.viewModel.updateItineraryConfig.error) {
+  //     widget.viewModel.updateItineraryConfig.clearResult();
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(content: Text(AppLocalization.of(context).errorWhileSavingItinerary)),
+  //     );
+  //   }
+  // }
 }
 
 class _AppSearchBar extends StatelessWidget {

@@ -8,14 +8,11 @@ abstract interface class IItineraryConfigService {
 
 final class ItineraryConfigServiceImpl implements IItineraryConfigService {
   @override
-  Future<ItineraryConfig> getItineraryConfig() {
-    // TODO: implement getItineraryConfig
-    throw UnimplementedError();
+  Future<ItineraryConfig> getItineraryConfig() async {
+    return ItineraryConfig();
   }
 
   @override
-  Future<void> setItineraryConfig(ItineraryConfig itineraryConfig) {
-    // TODO: implement setItineraryConfig
-    throw UnimplementedError();
+  Future<void> setItineraryConfig(ItineraryConfig itineraryConfig) async {
   }
 }

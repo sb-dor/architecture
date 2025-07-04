@@ -119,7 +119,8 @@ HomeController homeControllerFactory() {
 }
 
 IDestinationRepository destinationRepository() {
-  final IDestinationService destinationRemoteService = DestinationRemoteService();
+  final String mainUrl = const String.fromEnvironment("MAIN_URL");
+  final IDestinationService destinationRemoteService = DestinationRemoteService(mainUrl: mainUrl);
   final IDestinationService destinationLocalService = DestinationLocalService();
   final internetConnectionCheckerHelper = InternetConnectionCheckerHelper();
 

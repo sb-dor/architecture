@@ -42,12 +42,15 @@ class _SearchFormSubmitState extends State<SearchFormSubmit> {
       ),
       child: ListenableBuilder(
         listenable: _searchFormController,
-        child: SizedBox(height: 52, child: Center(child: Text("Searh"))),
+        child: SizedBox(height: 52, child: Center(child: Text("Search"))),
         builder: (context, child) {
           return FilledButton(
             key: const ValueKey(searchFormSubmitButtonKey),
-            onPressed:
-                _searchFormController.valid ? _searchFormController.updateItineraryConfig : null,
+            onPressed: () {
+              if (_searchFormController.valid) {
+                _searchFormController.updateItineraryConfig(onSave: _onResult);
+              }
+            },
             child: child,
           );
         },
@@ -57,11 +60,9 @@ class _SearchFormSubmitState extends State<SearchFormSubmit> {
 
   void _onResult() {
     if (!mounted) return;
-    if (_searchFormController.completed) {
-      // _searchFormController.updateItineraryConfig.clearResult();
-      // context.go(Routes.results);
-      Navigator.push(context, MaterialPageRoute(builder: (context) => ResultWidget()));
-    }
+    // _searchFormController.updateItineraryConfig.clearResult();
+    // context.go(Routes.results);
+    Navigator.push(context, MaterialPageRoute(builder: (context) => ResultWidget()));
 
     if (_searchFormController.error) {
       // widget.viewModel.updateItineraryConfig.clearResult();
@@ -70,7 +71,9 @@ class _SearchFormSubmitState extends State<SearchFormSubmit> {
           content: Text("Error while saving itinerary"),
           action: SnackBarAction(
             label: "Try again",
-            onPressed: _searchFormController.updateItineraryConfig,
+            onPressed: () {
+              _searchFormController.updateItineraryConfig(onSave: _onResult);
+            },
           ),
         ),
       );

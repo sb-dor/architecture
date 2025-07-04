@@ -114,7 +114,7 @@ class SearchFormController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> updateItineraryConfig() async {
+  Future<void> updateItineraryConfig({required VoidCallback onSave}) async {
     assert(valid, "called when valid was false");
     final result = await _itineraryConfigRepository.setItineraryConfig(
       ItineraryConfig(
@@ -124,5 +124,6 @@ class SearchFormController extends ChangeNotifier {
         guests: _guests,
       ),
     );
+    onSave();
   }
 }

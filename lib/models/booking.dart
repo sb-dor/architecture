@@ -28,7 +28,7 @@ class Booking {
     'id': id,
     'startDate': startDate.toIso8601String(),
     'endDate': endDate.toIso8601String(),
-    'name': "Booking",
+    'name': destination.ref,
     'destinationRef': destination.ref, // вместо destination.toJson()
     'activitiesRef': activities.map((e) => e.ref).toList(), // вместо .toJson()
   };

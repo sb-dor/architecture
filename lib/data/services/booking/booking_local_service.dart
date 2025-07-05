@@ -16,7 +16,7 @@ final class BookingLocalService implements IBookingService {
   }
 
   @override
-  Future<Booking> getBooking(int id) {
+  Future<Booking?> getBooking(int id) {
     // TODO: implement getBooking
     throw UnimplementedError();
   }

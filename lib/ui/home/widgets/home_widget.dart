@@ -1,5 +1,6 @@
 import 'package:architectures/models/booking_summary.dart';
 import 'package:architectures/runner/widgets/dependencies_scope.dart';
+import 'package:architectures/ui/booking/widgets/booking_widget.dart';
 import 'package:architectures/ui/common/themes/colors.dart';
 import 'package:architectures/ui/common/themes/dimens.dart';
 import 'package:architectures/ui/home/controller/home_controller.dart';
@@ -62,7 +63,17 @@ class _HomeWidgetState extends State<HomeWidget> {
                   itemBuilder: (context, index) {
                     return _Booking(
                       booking: _homeController.bookingSummary[index],
-                      onTap: () {},
+                      onTap: () {
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder:
+                        //         (_) => BookingWidget(
+                        //           bookingId: _homeController.bookingSummary[index].id,
+                        //         ),
+                        //   ),
+                        // );
+                      },
                       confirmDismiss: (DismissDirection direction) async {
                         await _homeController.deleteBooking(
                           (_homeController.bookingSummary[index].id),

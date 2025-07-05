@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'booking_body_widget.dart';
 
 class BookingWidget extends StatefulWidget {
-  const BookingWidget({super.key});
+  const BookingWidget({super.key, this.bookingId});
+
+  final int? bookingId;
 
   @override
   State<BookingWidget> createState() => _BookingWidgetState();
@@ -19,7 +21,11 @@ class _BookingWidgetState extends State<BookingWidget> {
   void initState() {
     super.initState();
     _bookingController = DependenciesScope.of(context).bookingController;
-    _bookingController.createBooking();
+    if (widget.bookingId != null) {
+      _bookingController.load(widget.bookingId!);
+    } else {
+      _bookingController.createBooking();
+    }
   }
 
   @override

@@ -110,7 +110,7 @@ class BookingController extends ChangeNotifier {
   Future<void> shareBooking() async {
     if (_booking == null) return;
     final text =
-        'Trip to ${_booking!.destination.name}\n'
+        'Trip to ${_booking!.destination?.name ?? ''}\n'
         'on ${dateFormatStartEnd(DateTimeRange(start: _booking!.startDate, end: _booking!.endDate))}\n'
         'Activities:\n'
         '${_booking!.activities.map((a) => ' - ${a.name}').join('\n')}.';

@@ -1,4 +1,5 @@
 import 'package:architectures/models/booking.dart';
+import 'package:architectures/models/destination.dart';
 import 'package:architectures/ui/common/themes/colors.dart';
 import 'package:architectures/ui/common/themes/dimens.dart';
 import 'package:architectures/ui/common/ui/home_button.dart';
@@ -20,7 +21,10 @@ class BookingHeader extends StatelessWidget {
         _Top(booking: booking),
         Padding(
           padding: Dimens.of(context).edgeInsetsScreenHorizontal,
-          child: Text(booking.destination.knownFor, style: Theme.of(context).textTheme.bodyLarge),
+          child: Text(
+            booking.destination?.knownFor ?? '-',
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
         ),
         const SizedBox(height: Dimens.paddingVertical),
         _Tags(booking: booking),
@@ -78,7 +82,7 @@ class _Tags extends StatelessWidget {
         spacing: 6,
         runSpacing: 6,
         children:
-            booking.destination.tags
+            (booking.destination?.tags ?? <String>[])
                 .map(
                   (tag) => TagChip(
                     tag: tag,
@@ -109,7 +113,7 @@ class _Headline extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(booking.destination.name, style: Theme.of(context).textTheme.headlineLarge),
+            Text(booking.destination?.name ?? '', style: Theme.of(context).textTheme.headlineLarge),
             Text(
               dateFormatStartEnd(DateTimeRange(start: booking.startDate, end: booking.endDate)),
               style: Theme.of(context).textTheme.headlineSmall,
@@ -128,7 +132,7 @@ class _HeaderImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CachedNetworkImage(fit: BoxFit.fitWidth, imageUrl: booking.destination.imageURL ?? '');
+    return CachedNetworkImage(fit: BoxFit.fitWidth, imageUrl: booking.destination?.imageURL ?? '');
   }
 }
 

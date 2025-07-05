@@ -6,7 +6,7 @@ import 'package:architectures/utils/internet_connection_checker_helper.dart';
 abstract interface class IBookingRepository {
   Future<List<BookingSummary>> getBookingsList();
 
-  Future<Booking> getBooking(int id);
+  Future<Booking?> getBooking(int id);
 
   Future<bool> createBooking(Booking booking);
 
@@ -47,7 +47,7 @@ final class BookingRepositoryImpl implements IBookingRepository {
   }
 
   @override
-  Future<Booking> getBooking(int id) async {
+  Future<Booking?> getBooking(int id) async {
     final hasInternet = await _internetConnectionCheckerHelper.hasAccessToInternet();
     if (hasInternet) {
       return _bookingRemoteService.getBooking(id);

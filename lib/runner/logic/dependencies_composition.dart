@@ -1,10 +1,12 @@
 import 'dart:developer';
+import 'package:architectures/data/repositories/activities/activities_repository.dart';
 import 'package:architectures/data/repositories/auth/auth_repository.dart';
 import 'package:architectures/data/repositories/booking/booking_repository.dart';
 import 'package:architectures/data/repositories/continent/continent_repository.dart';
 import 'package:architectures/data/repositories/destination/destination_repository.dart';
 import 'package:architectures/data/repositories/itinerary_config/itinerary_config_repository.dart';
 import 'package:architectures/data/repositories/user_repository/user_repository.dart';
+import 'package:architectures/data/services/activities/activities_service.dart';
 import 'package:architectures/data/services/auth/auth_local_service.dart';
 import 'package:architectures/data/services/auth/auth_remote_service.dart';
 import 'package:architectures/data/services/auth/auth_service.dart';
@@ -20,6 +22,7 @@ import 'package:architectures/data/services/user_services/user_local_service.dar
 import 'package:architectures/data/services/user_services/user_remote_service.dart';
 import 'package:architectures/data/services/user_services/user_service.dart';
 import 'package:architectures/runner/models/dependency_container.dart';
+import 'package:architectures/ui/activities/controllers/activities_controller.dart';
 import 'package:architectures/ui/home/controller/home_controller.dart';
 import 'package:architectures/ui/logout/controllers/logout_controller.dart';
 import 'package:architectures/ui/results/controllers/result_controller.dart';
@@ -43,6 +46,12 @@ Future<DependencyContainer> composeDependencies({required Logger logger}) async 
       logger: logger,
       sharedPreferencesHelper: sharedPreferencesHelper,
     ),
+
+    activitiesController: activitiesController(
+      logger: logger,
+      sharedPreferencesHelper: sharedPreferencesHelper,
+    ),
+
     sharedPreferencesHelper: sharedPreferencesHelper,
     logger: logger,
   );
@@ -116,6 +125,31 @@ IItineraryConfigRepository itineraryConfigRepository({
   return ItineraryConfigRepositoryImpl(iItineraryConfigService: iItineraryConfigService);
 }
 
+IDestinationRepository destinationRepository() {
+  final String mainUrl = const String.fromEnvironment("MAIN_URL");
+  final IDestinationService destinationRemoteService = DestinationRemoteService(mainUrl: mainUrl);
+  final IDestinationService destinationLocalService = DestinationLocalService();
+  final internetConnectionCheckerHelper = InternetConnectionCheckerHelper();
+
+  return DestinationRepositoryImpl(
+    destinationRemoteService: destinationRemoteService,
+    destinationLocalService: destinationLocalService,
+    internetConnectionCheckerHelper: internetConnectionCheckerHelper,
+  );
+}
+
+IActivitiesRepository activitiesRepository() {
+  final String mainUrl = const String.fromEnvironment("MAIN_URL");
+  final IActivitiesService activitiesRemoteService = ActivitiesRemoteService(mainUrl: mainUrl);
+  final IActivitiesService activitiesLocalService = ActivitiesLocalService();
+  final internetConnectionCheckerHelper = InternetConnectionCheckerHelper();
+  return ActivitiesRepositoryImpl(
+    activitiesRemoteService: activitiesRemoteService,
+    activitiesLocalService: activitiesLocalService,
+    internetConnectionChecker: internetConnectionCheckerHelper,
+  );
+}
+
 LogoutController logoutController() {
   return LogoutController(authRepository: authRepository());
 }
@@ -141,25 +175,26 @@ HomeController homeControllerFactory() {
   );
 }
 
-IDestinationRepository destinationRepository() {
-  final String mainUrl = const String.fromEnvironment("MAIN_URL");
-  final IDestinationService destinationRemoteService = DestinationRemoteService(mainUrl: mainUrl);
-  final IDestinationService destinationLocalService = DestinationLocalService();
-  final internetConnectionCheckerHelper = InternetConnectionCheckerHelper();
-
-  return DestinationRepositoryImpl(
-    destinationRemoteService: destinationRemoteService,
-    destinationLocalService: destinationLocalService,
-    internetConnectionCheckerHelper: internetConnectionCheckerHelper,
-  );
-}
-
 ResultController resultController({
   required Logger logger,
   required SharedPreferencesHelper sharedPreferencesHelper,
 }) {
   return ResultController(
     destinationRepository: destinationRepository(),
+    itineraryConfigRepository: itineraryConfigRepository(
+      logger: logger,
+      sharedPreferencesHelper: sharedPreferencesHelper,
+    ),
+    logger: logger,
+  );
+}
+
+ActivitiesController activitiesController({
+  required Logger logger,
+  required SharedPreferencesHelper sharedPreferencesHelper,
+}) {
+  return ActivitiesController(
+    activityRepository: activitiesRepository(),
     itineraryConfigRepository: itineraryConfigRepository(
       logger: logger,
       sharedPreferencesHelper: sharedPreferencesHelper,

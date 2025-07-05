@@ -63,7 +63,6 @@ class ResultController extends ChangeNotifier {
     assert(destinationRef.isNotEmpty, "destinationRef should not be empty");
 
     final resultConfig = await _itineraryConfigRepository.getItineraryConfig();
-    _logger.log(Level.debug, 'Failed to load stored ItineraryConfig');
 
     final itineraryConfig = resultConfig;
     final result = await _itineraryConfigRepository.setItineraryConfig(

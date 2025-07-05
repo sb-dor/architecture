@@ -1,4 +1,5 @@
 import 'package:architectures/runner/widgets/dependencies_scope.dart';
+import 'package:architectures/ui/activities/widgets/activities_widget.dart';
 import 'package:architectures/ui/common/themes/dimens.dart';
 import 'package:architectures/ui/common/ui/app_search_bar.dart';
 import 'package:architectures/ui/common/ui/error_indicator.dart';
@@ -128,6 +129,7 @@ class _Grid extends StatelessWidget {
           destination: destination,
           onTap: () {
             resultController.updateItineraryConfig(destination.ref);
+            Navigator.push(context, MaterialPageRoute(builder: (context) => ActivitiesWidget()));
           },
         );
       }, childCount: resultController.destinations.length),

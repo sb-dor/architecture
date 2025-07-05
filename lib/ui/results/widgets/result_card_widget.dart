@@ -18,7 +18,7 @@ class ResultCardWidget extends StatelessWidget {
         fit: StackFit.expand,
         children: [
           CachedNetworkImage(
-            imageUrl: destination.imageURL,
+            imageUrl: destination.imageURL ?? '',
             fit: BoxFit.fitHeight,
             errorWidget: (context, url, error) => const Icon(Icons.error),
           ),

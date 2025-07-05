@@ -25,14 +25,25 @@ import 'package:architectures/ui/logout/controllers/logout_controller.dart';
 import 'package:architectures/ui/results/controllers/result_controller.dart';
 import 'package:architectures/ui/search_from/controller/search_form_controller.dart';
 import 'package:architectures/utils/internet_connection_checker_helper.dart';
+import 'package:architectures/utils/shared_preferences_helper.dart';
 import 'package:logger/logger.dart';
 
 Future<DependencyContainer> composeDependencies({required Logger logger}) async {
+  final sharedPreferencesHelper = SharedPreferencesHelper();
+  await sharedPreferencesHelper.init();
+
   final dependencyContainer = DependencyContainer(
     homeController: homeControllerFactory(),
     logoutController: logoutController(),
-    resultController: resultController(logger: logger),
-    searchFormController: searchFormController(logger: logger),
+    resultController: resultController(
+      logger: logger,
+      sharedPreferencesHelper: sharedPreferencesHelper,
+    ),
+    searchFormController: searchFormController(
+      logger: logger,
+      sharedPreferencesHelper: sharedPreferencesHelper,
+    ),
+    sharedPreferencesHelper: sharedPreferencesHelper,
     logger: logger,
   );
   return dependencyContainer;
@@ -94,8 +105,14 @@ IContinentRepository continentRepository() {
   );
 }
 
-IItineraryConfigRepository itineraryConfigRepository() {
-  final IItineraryConfigService iItineraryConfigService = ItineraryConfigServiceImpl();
+IItineraryConfigRepository itineraryConfigRepository({
+  required Logger logger,
+  required SharedPreferencesHelper sharedPreferencesHelper,
+}) {
+  final IItineraryConfigService iItineraryConfigService = ItineraryConfigServiceImpl(
+    logger: logger,
+    sharedPreferencesHelper: sharedPreferencesHelper,
+  );
   return ItineraryConfigRepositoryImpl(iItineraryConfigService: iItineraryConfigService);
 }
 
@@ -103,10 +120,16 @@ LogoutController logoutController() {
   return LogoutController(authRepository: authRepository());
 }
 
-SearchFormController searchFormController({required Logger logger}) {
+SearchFormController searchFormController({
+  required Logger logger,
+  required SharedPreferencesHelper sharedPreferencesHelper,
+}) {
   return SearchFormController(
     continentRepository: continentRepository(),
-    itineraryConfigRepository: itineraryConfigRepository(),
+    itineraryConfigRepository: itineraryConfigRepository(
+      logger: logger,
+      sharedPreferencesHelper: sharedPreferencesHelper,
+    ),
     logger: logger,
   );
 }
@@ -131,10 +154,16 @@ IDestinationRepository destinationRepository() {
   );
 }
 
-ResultController resultController({required Logger logger}) {
+ResultController resultController({
+  required Logger logger,
+  required SharedPreferencesHelper sharedPreferencesHelper,
+}) {
   return ResultController(
     destinationRepository: destinationRepository(),
-    itineraryConfigRepository: itineraryConfigRepository(),
+    itineraryConfigRepository: itineraryConfigRepository(
+      logger: logger,
+      sharedPreferencesHelper: sharedPreferencesHelper,
+    ),
     logger: logger,
   );
 }

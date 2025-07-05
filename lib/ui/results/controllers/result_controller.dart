@@ -32,7 +32,7 @@ class ResultController extends ChangeNotifier {
 
   bool completed = false;
 
-  Future<void> getDestinations() async {
+  Future<void> _getDestinations() async {
     final result = await _destinationRepository.getDestinations();
     _destinations =
         result
@@ -49,8 +49,9 @@ class ResultController extends ChangeNotifier {
     notifyListeners();
     // Load current itinerary config
     _itineraryConfig = await _itineraryConfigRepository.getItineraryConfig();
-    _logger.log(Level.debug, 'Failed to load stored ItineraryConfig');
     notifyListeners();
+
+    _getDestinations();
 
     searching = false;
     completed = true;

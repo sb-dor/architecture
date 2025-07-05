@@ -10,8 +10,16 @@ class AppRunner {
     final logger = appLogger(kReleaseMode ? NoOpLogFilter() : DevelopmentFilter());
     await runZonedGuarded(
       () async {
-        final dependencies = await composeDependencies(logger: logger);
-        runApp(MaterialContext(dependencyContainer: dependencies));
+        final widgetBinding = WidgetsFlutterBinding.ensureInitialized();
+        widgetBinding.deferFirstFrame();
+        try {
+          final dependencies = await composeDependencies(logger: logger);
+          runApp(MaterialContext(dependencyContainer: dependencies));
+        } catch (error, stackTrace) {
+          rethrow;
+        } finally {
+          widgetBinding.allowFirstFrame();
+        }
       },
       (error, stackTrace) {
         // log errors and stackTrace

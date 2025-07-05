@@ -15,7 +15,7 @@ class Destination {
   final String continent;
   final String knownFor;
   final List<String> tags;
-  final String imageURL;
+  final String? imageURL;
 
   factory Destination.fromJson(Map<String, dynamic> json) => Destination(
     name: (json['name'] ?? json['ref']) as String,
@@ -24,7 +24,7 @@ class Destination {
     continent: json['continent'] as String,
     knownFor: json['knownFor'] as String,
     tags: List<String>.from(json['tags']),
-    imageURL: json['imageURL'] as String,
+    imageURL: json['imageUrl'] as String?,
   );
 
   Map<String, dynamic> toJson() => {

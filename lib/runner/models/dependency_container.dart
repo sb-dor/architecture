@@ -2,6 +2,7 @@ import 'package:architectures/ui/home/controller/home_controller.dart';
 import 'package:architectures/ui/logout/controllers/logout_controller.dart';
 import 'package:architectures/ui/results/controllers/result_controller.dart';
 import 'package:architectures/ui/search_from/controller/search_form_controller.dart';
+import 'package:architectures/utils/shared_preferences_helper.dart';
 import 'package:logger/logger.dart';
 
 class DependencyContainer {
@@ -10,6 +11,7 @@ class DependencyContainer {
     required this.searchFormController,
     required this.logoutController,
     required this.resultController,
+    required this.sharedPreferencesHelper,
     required this.logger,
   });
 
@@ -20,6 +22,8 @@ class DependencyContainer {
   final LogoutController logoutController;
 
   final ResultController resultController;
+
+  final SharedPreferencesHelper sharedPreferencesHelper;
 
   final Logger logger;
 }

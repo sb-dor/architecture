@@ -20,7 +20,7 @@ class _ResultWidgetState extends State<ResultWidget> {
   void initState() {
     super.initState();
     _resultController = DependenciesScope.of(context).resultController;
-    _resultController.getDestinations();
+    _resultController.search();
     // widget.viewModel.updateItineraryConfig.addListener(_onResult);
   }
 

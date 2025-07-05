@@ -3,7 +3,7 @@ import 'destination.dart';
 
 class Booking {
   Booking({
-    required this.id,
+    this.id,
     required this.startDate,
     required this.endDate,
     required this.destination,
@@ -28,7 +28,8 @@ class Booking {
     'id': id,
     'startDate': startDate.toIso8601String(),
     'endDate': endDate.toIso8601String(),
-    'destination': destination.toJson(),
-    'activities': activities.map((e) => e.toJson()).toList(),
+    'name': "Booking",
+    'destinationRef': destination.ref, // вместо destination.toJson()
+    'activitiesRef': activities.map((e) => e.ref).toList(), // вместо .toJson()
   };
 }

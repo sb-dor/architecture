@@ -1,6 +1,7 @@
 import 'package:architectures/models/activity.dart';
 import 'package:architectures/runner/widgets/dependencies_scope.dart';
 import 'package:architectures/ui/activities/controllers/activities_controller.dart';
+import 'package:architectures/ui/booking/widgets/booking_widget.dart';
 import 'package:architectures/ui/common/themes/dimens.dart';
 import 'package:flutter/material.dart';
 import 'activities_header_widget.dart';
@@ -114,9 +115,14 @@ class _BottomArea extends StatelessWidget {
               ),
               FilledButton(
                 key: const Key(confirmButtonKey),
-                onPressed: () {
+                onPressed: () async {
                   if (activitiesController.selectedActivities.isNotEmpty) {
-                    activitiesController.saveActivities();
+                    await activitiesController.saveActivities();
+                    if (!context.mounted) return;
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => BookingWidget()),
+                    );
                   }
                 },
                 child: Text("Confirm"),

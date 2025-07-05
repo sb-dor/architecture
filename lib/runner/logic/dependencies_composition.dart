@@ -23,6 +23,7 @@ import 'package:architectures/data/services/user_services/user_remote_service.da
 import 'package:architectures/data/services/user_services/user_service.dart';
 import 'package:architectures/runner/models/dependency_container.dart';
 import 'package:architectures/ui/activities/controllers/activities_controller.dart';
+import 'package:architectures/ui/booking/controller/booking_controller.dart';
 import 'package:architectures/ui/home/controller/home_controller.dart';
 import 'package:architectures/ui/logout/controllers/logout_controller.dart';
 import 'package:architectures/ui/results/controllers/result_controller.dart';
@@ -48,6 +49,11 @@ Future<DependencyContainer> composeDependencies({required Logger logger}) async 
     ),
 
     activitiesController: activitiesController(
+      logger: logger,
+      sharedPreferencesHelper: sharedPreferencesHelper,
+    ),
+
+    bookingController: bookingController(
       logger: logger,
       sharedPreferencesHelper: sharedPreferencesHelper,
     ),
@@ -199,6 +205,22 @@ ActivitiesController activitiesController({
       logger: logger,
       sharedPreferencesHelper: sharedPreferencesHelper,
     ),
+    logger: logger,
+  );
+}
+
+BookingController bookingController({
+  required Logger logger,
+  required SharedPreferencesHelper sharedPreferencesHelper,
+}) {
+  return BookingController(
+    itineraryConfigRepository: itineraryConfigRepository(
+      logger: logger,
+      sharedPreferencesHelper: sharedPreferencesHelper,
+    ),
+    bookingRepository: bookingRepositoryFactory(),
+    destinationRepository: destinationRepository(),
+    activitiesRepository: activitiesRepository(),
     logger: logger,
   );
 }

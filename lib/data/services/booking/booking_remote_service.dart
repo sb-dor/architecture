@@ -17,7 +17,12 @@ final class BookingRemoteService implements IBookingService {
 
   @override
   Future<bool> createBooking(Booking booking) async {
-    final request = await _client.post(Uri.parse('$_mainUrl/booking'));
+    final request = await _client.post(
+      Uri.parse('$_mainUrl/booking'),
+      headers: {HttpHeaders.authorizationHeader: "Bearer ${Constants.token}"},
+      body: jsonEncode(booking.toJson()),
+    );
+    print("coming requst create booking: ${request.body}");
     if (request.statusCode == 201) {
       final booking = BookingSummary.fromJson(jsonDecode(request.body));
       return true;

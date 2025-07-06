@@ -37,7 +37,7 @@ void main() {
   late final MockInternetConnectionCheckerHelper internetConnectionCheckerHelper;
   final Logger logger = Logger();
 
-  late final SearchFormController _searchFormController;
+  late final SearchFormController searchFormController;
 
   setUpAll(() {
     mockIContinentRemoteService = MockIContinentService();
@@ -55,7 +55,7 @@ void main() {
       internetConnectionCheckerHelper: internetConnectionCheckerHelper,
     );
 
-    _searchFormController = SearchFormController(
+    searchFormController = SearchFormController(
       continentRepository: iContinentRepository,
       itineraryConfigRepository: itineraryConfigRepository,
       logger: logger,
@@ -75,13 +75,13 @@ void main() {
       await tcontroller.TestWidgetController(tester).pumpWidget(
         SearchFormWidget(),
         dependencies: TestSearchFromDependencyContainer(
-          searchFormController: _searchFormController,
+          searchFormController: searchFormController,
         ),
       );
 
-      await _searchFormController.load();
+      await searchFormController.load();
 
-      expect(_searchFormController.continents.isNotEmpty, true);
+      expect(searchFormController.continents.isNotEmpty, true);
 
       await tester.pumpAndSettle();
 
@@ -106,11 +106,11 @@ void main() {
       await tcontroller.TestWidgetController(tester).pumpWidget(
         SearchFormWidget(),
         dependencies: TestSearchFromDependencyContainer(
-          searchFormController: _searchFormController,
+          searchFormController: searchFormController,
         ),
       );
 
-      await _searchFormController.load();
+      await searchFormController.load();
 
       await tester.pumpAndSettle();
 
@@ -120,12 +120,12 @@ void main() {
       expect(findTextInButton, findsNothing);
       expect(findButton, findsOneWidget);
 
-      _searchFormController.selectedContinent = fakeContinents.first.name;
-      _searchFormController.dateRange = DateTimeRange(
+      searchFormController.selectedContinent = fakeContinents.first.name;
+      searchFormController.dateRange = DateTimeRange(
         start: DateTime.now(),
         end: DateTime.now().add(Duration(days: 10)),
       );
-      _searchFormController.guests = 2;
+      searchFormController.guests = 2;
 
       await tester.pumpAndSettle();
 

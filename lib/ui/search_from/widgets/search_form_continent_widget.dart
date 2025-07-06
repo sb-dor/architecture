@@ -55,7 +55,7 @@ class _SearchFormContinentWidgetState extends State<SearchFormContinentWidget> {
               itemBuilder: (BuildContext context, int index) {
                 final Continent(:imageUrl, :name) = _searchFormController.continents[index];
                 return _CarouselItem(
-                  key: ValueKey(name),
+                  key: ValueKey("continent_key_name_$name"),
                   imageUrl: imageUrl,
                   name: name,
                   searchFormController: _searchFormController,

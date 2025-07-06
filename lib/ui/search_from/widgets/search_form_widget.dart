@@ -23,7 +23,7 @@ class _SearchFormWidgetState extends State<SearchFormWidget> {
   void initState() {
     super.initState();
     _searchFormController = DependenciesScope.of(context).searchFormController;
-    _searchFormController.loadContinents();
+    _searchFormController.load();
   }
 
   @override
@@ -34,8 +34,7 @@ class _SearchFormWidgetState extends State<SearchFormWidget> {
         if (!didPop) Navigator.pop(context);
       },
       child: Scaffold(
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+        body: ListView(
           children: [
             SafeArea(
               top: true,
@@ -53,7 +52,6 @@ class _SearchFormWidgetState extends State<SearchFormWidget> {
             SearchFormContinentWidget(),
             SearchFormDateWidget(),
             SearchFormGuests(),
-            const Spacer(),
             SearchFormSubmit(),
           ],
         ),

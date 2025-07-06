@@ -42,16 +42,25 @@ class _SearchFormSubmitState extends State<SearchFormSubmit> {
       ),
       child: ListenableBuilder(
         listenable: _searchFormController,
-        child: SizedBox(height: 52, child: Center(child: Text("Search"))),
         builder: (context, child) {
           return FilledButton(
+            style: ButtonStyle(
+              backgroundColor: WidgetStatePropertyAll(
+                !_searchFormController.valid ? Colors.grey : null,
+              ),
+            ),
             key: const ValueKey(searchFormSubmitButtonKey),
             onPressed: () {
               if (_searchFormController.valid) {
                 _searchFormController.updateItineraryConfig(onSave: _onResult);
               }
             },
-            child: child,
+            child: SizedBox(
+              height: 52,
+              child: Center(
+                child: _searchFormController.valid ? Text("Search selected data") : Text("Search"),
+              ),
+            ),
           );
         },
       ),

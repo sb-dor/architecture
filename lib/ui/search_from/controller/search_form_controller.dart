@@ -82,7 +82,7 @@ class SearchFormController extends ChangeNotifier {
       error = false;
       completed = false;
       notifyListeners();
-      await _continentRepository.getContinents();
+      await _loadContinents();
       completed = true;
     } catch (error, stackTrace) {
       await loadItineraryConfig();
@@ -94,7 +94,7 @@ class SearchFormController extends ChangeNotifier {
     }
   }
 
-  Future<void> loadContinents() async {
+  Future<void> _loadContinents() async {
     _continents = await _continentRepository.getContinents();
 
     _logger.log(Level.debug, 'Continents (${_continents.length}) loaded');

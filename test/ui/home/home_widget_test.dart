@@ -13,8 +13,8 @@ import 'package:mockito/annotations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import '../../../testing_data/temp_data/fake_bookings.dart';
 import '../../../testing_data/temp_data/fake_user.dart';
-import 'home_widget.mocks.dart';
 import '../../helpers/test_widget_controller.dart' as tcontroller;
+import 'home_widget_test.mocks.dart';
 
 class TestAppWidget extends StatelessWidget {
   const TestAppWidget({super.key, required this.dependencyContainer, required this.widget});

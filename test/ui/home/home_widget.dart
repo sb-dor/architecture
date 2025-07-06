@@ -48,7 +48,9 @@ void main() {
   late final HomeController homeController;
   late final Widget app;
 
-  setUp(() {
+  // if you use only one test use "setUp" for init and "tearDown" for closing
+  // otherWise use "setUpAll" and teatDownAll",
+  setUpAll(() {
     mockedBookingRemoteService = MockIBookingService();
     mockedBookingLocalService = MockIBookingService();
     mockedUserRemoteService = MockIUserService();
@@ -72,14 +74,23 @@ void main() {
       userRepository: userRepository,
     );
 
-    app = TestAppWidget(
-      dependencyContainer: HomeTestDependencyContainer(homeController: homeController),
-      widget: HomeWidget(),
-    );
+    // you can do like this or check out each "testWidgets"
+
+    // app = TestAppWidget(
+    //   dependencyContainer: HomeTestDependencyContainer(homeController: homeController),
+    //   widget: HomeWidget(),
+    // );
   });
 
   group('HomeWidgetTest', () {
-    testWidgets('description', (tester) async {
+    testWidgets('HomeWidgetTestWithoutTestWidgetController', (tester) async {
+      // Because of I use sizzle_starter's pumpWidget from test/helpers/test_widget_controller.dart
+      // I initiate app here for a while
+      app = TestAppWidget(
+        dependencyContainer: HomeTestDependencyContainer(homeController: homeController),
+        widget: HomeWidget(),
+      );
+
       when(mockedUserRemoteService.user()).thenAnswer((_) async => kUser);
 
       when(mockedBookingRemoteService.getBookingsList()).thenAnswer((_) async => [kBookingSummary]);
@@ -89,6 +100,29 @@ void main() {
       await homeController.load();
 
       await tester.pumpWidget(app);
+
+      final findOneDismissibleButton = find.byKey(
+        ValueKey("booked_home_dismissible_button_${kBookingSummary.id}"),
+      );
+
+      expect(findOneDismissibleButton, findsOneWidget);
+    });
+
+    testWidgets('HomeWidgetTestWithTestWidgetController', (tester) async {
+      when(mockedUserRemoteService.user()).thenAnswer((_) async => kUser);
+
+      when(mockedBookingRemoteService.getBookingsList()).thenAnswer((_) async => [kBookingSummary]);
+
+      when(mockedInternetConnectionChecker.hasAccessToInternet()).thenAnswer((_) async => true);
+
+      await homeController.load();
+
+      // you can use either sizzle_starter's pump widget
+      // from test/helpers/test_widget.controller
+      await tcontroller.TestWidgetController(tester).pumpWidget(
+        HomeWidget(),
+        dependencies: HomeTestDependencyContainer(homeController: homeController),
+      );
 
       final findOneDismissibleButton = find.byKey(
         ValueKey("booked_home_dismissible_button_${kBookingSummary.id}"),

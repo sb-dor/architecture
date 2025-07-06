@@ -4,12 +4,16 @@ class BookingSummary {
     required this.name,
     required this.startDate,
     required this.endDate,
+    this.destinationRef,
+    this.activitiesRef,
   });
 
   final int id;
   final String name;
   final DateTime startDate;
   final DateTime endDate;
+  final String? destinationRef;
+  final List<String>? activitiesRef;
 
   factory BookingSummary.fromJson(Map<String, dynamic> json) => BookingSummary(
     id: json['id'] as int,

@@ -102,7 +102,7 @@ class _Booking extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-      key: ValueKey(booking.id),
+      key: ValueKey("booked_home_dismissible_button_${booking.id}"),
       direction: DismissDirection.endToStart,
       confirmDismiss: confirmDismiss,
       background: Container(

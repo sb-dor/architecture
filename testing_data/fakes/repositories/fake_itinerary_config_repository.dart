@@ -2,8 +2,13 @@ import 'package:architectures/data/repositories/itinerary_config/itinerary_confi
 import 'package:architectures/models/itinerary_config.dart';
 
 class FakeItineraryConfigRepository implements IItineraryConfigRepository {
+
+  FakeItineraryConfigRepository(this.itineraryConfig);
+
+  final ItineraryConfig itineraryConfig;
+
   @override
-  Future<ItineraryConfig> getItineraryConfig() => Future.value(ItineraryConfig());
+  Future<ItineraryConfig> getItineraryConfig() => Future.value(itineraryConfig);
 
   @override
   Future<void> setItineraryConfig(ItineraryConfig itineraryConfig) => Future.value();

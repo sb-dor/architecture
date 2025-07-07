@@ -86,6 +86,12 @@ void main() {
       );
 
       expect(findSeveralWidgets, findsWidgets);
+
+      expect(resultController.destinations.isNotEmpty, true);
+
+      verify(mockIDestinationRemoteService.getDestinations());
+
+      verify(mockIItineraryConfigService.getItineraryConfig());
     });
   });
 }

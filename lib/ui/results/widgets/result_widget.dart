@@ -125,7 +125,7 @@ class _Grid extends StatelessWidget {
       delegate: SliverChildBuilderDelegate((context, index) {
         final destination = resultController.destinations[index];
         return ResultCardWidget(
-          key: ValueKey(destination.ref),
+          key: ValueKey("result_destination_${destination.ref}"),
           destination: destination,
           onTap: () {
             resultController.updateItineraryConfig(destination.ref);

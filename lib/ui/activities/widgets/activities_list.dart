@@ -34,7 +34,7 @@ class ActivitiesList extends StatelessWidget {
           return Padding(
             padding: EdgeInsets.only(bottom: index < list.length - 1 ? 20 : 0),
             child: ActivityEntry(
-              key: ValueKey(activity.ref),
+              key: ValueKey("activities_item_${activity.ref}"),
               activity: activity,
               selected: activitiesController.selectedActivities.contains(activity.ref),
               onChanged: (value) {

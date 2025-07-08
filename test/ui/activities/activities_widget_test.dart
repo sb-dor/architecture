@@ -85,6 +85,12 @@ void main() {
       });
 
       expect(findSeveralWidgets, findsWidgets);
+
+      expect(
+        activitiesController.daytimeActivities.isNotEmpty ||
+            activitiesController.eveningActivities.isNotEmpty,
+        true,
+      );
     });
   });
 }

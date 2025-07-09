@@ -12,7 +12,6 @@ import 'package:logger/logger.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import '../../../testing_data/temp_data/fake_activities.dart';
-import '../../../testing_data/temp_data/fake_destination.dart';
 import '../../../testing_data/temp_data/fake_itinerary_config.dart';
 import '../../helpers/test_widget_controller.dart';
 import 'activities_widget_test.mocks.dart';
@@ -60,7 +59,7 @@ void main() {
   });
 
   group('Activities Widget Test', () {
-    testWidgets('Activities selection test', (tester) async {
+    testWidgets('Activities appearance test', (tester) async {
       when(mockInternetConnectionCheckerHelper.hasAccessToInternet()).thenAnswer((_) async => true);
 
       when(
@@ -91,6 +90,51 @@ void main() {
             activitiesController.eveningActivities.isNotEmpty,
         true,
       );
+    });
+
+    testWidgets('Activities selection test', (tester) async {
+      when(mockInternetConnectionCheckerHelper.hasAccessToInternet()).thenAnswer((_) async => true);
+
+      when(
+        mockIItineraryConfigService.getItineraryConfig(),
+      ).thenAnswer((_) async => fakeItineraryConfig);
+
+      when(mockIActivitiesRemoteService.getByDestination(any)).thenAnswer((_) async => [kActivity]);
+
+      await TestWidgetController(tester).pumpWidget(
+        ActivitiesWidget(),
+        dependencies: TestActivitiesDependencyContainer(activitiesController: activitiesController),
+      );
+
+      await activitiesController.loadActivities();
+
+      await tester.pumpAndSettle();
+
+      final findNoSelectedItemsTest = find.text("No Selected Items");
+
+      expect(findNoSelectedItemsTest, findsOneWidget);
+
+      final findSeveralWidgets = find.byWidgetPredicate((widget) {
+        return widget.key != null &&
+            widget.key is ValueKey<String> &&
+            (widget.key as ValueKey<String>).value.contains("activity_checkbox_");
+      });
+
+      expect(findSeveralWidgets, findsWidgets);
+
+      expect(
+        activitiesController.daytimeActivities.isNotEmpty ||
+            activitiesController.eveningActivities.isNotEmpty,
+        true,
+      );
+
+      await tester.tap(findSeveralWidgets.first);
+
+      await tester.pumpAndSettle();
+
+      expect(activitiesController.selectedActivities.isNotEmpty, true);
+
+      expect(findNoSelectedItemsTest, findsNothing);
     });
   });
 }

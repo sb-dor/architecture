@@ -50,7 +50,7 @@ class ActivityEntry extends StatelessWidget {
           ),
           const SizedBox(width: 20),
           CustomCheckbox(
-            key: ValueKey('${activity.ref}-checkbox'),
+            key: ValueKey('activity_checkbox_${activity.ref}'),
             value: selected,
             onChanged: onChanged,
           ),

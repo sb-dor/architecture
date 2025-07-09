@@ -110,7 +110,9 @@ class _BottomArea extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "${activitiesController.selectedActivities.length} selected",
+                activitiesController.selectedActivities.isEmpty
+                    ? "No Selected Items"
+                    : "${activitiesController.selectedActivities.length} selected",
                 style: Theme.of(context).textTheme.labelLarge,
               ),
               FilledButton(

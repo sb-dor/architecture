@@ -83,6 +83,7 @@ void main() {
   });
 
   group('HomeWidgetTest', () {
+    // test helper which uses from sizzle_starter is much more better
     testWidgets('HomeWidgetTestWithoutTestWidgetController', (tester) async {
       when(mockedUserRemoteService.user()).thenAnswer((_) async => kUser);
 

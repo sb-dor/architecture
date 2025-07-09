@@ -1,6 +1,7 @@
 import 'package:architectures/runner/widgets/dependencies_scope.dart';
 import 'package:architectures/ui/booking/controller/booking_controller.dart';
 import 'package:architectures/ui/home/widgets/home_widget.dart';
+import 'package:architectures/utils/date_format_start_end.dart';
 import 'package:flutter/material.dart';
 
 import 'booking_body_widget.dart';
@@ -50,8 +51,14 @@ class _BookingWidgetState extends State<BookingWidget> {
                 // Workaround for https://github.com/flutter/flutter/issues/115358#issuecomment-2117157419
                 heroTag: null,
                 key: const ValueKey('share-button'),
-                onPressed:
-                    _bookingController.booking != null ? _bookingController.shareBooking : null,
+                onPressed: () {
+                  final text =
+                      'Trip to ${_bookingController.booking!.destination?.name ?? ''}\n'
+                      'on ${dateFormatStartEnd(DateTimeRange(start: _bookingController.booking!.startDate, end: _bookingController.booking!.endDate))}\n'
+                      'Activities:\n'
+                      '${_bookingController.booking!.activities.map((a) => ' - ${a.name}').join('\n')}.';
+                  _bookingController.booking != null ? _bookingController.shareBooking(text) : null;
+                },
                 label: Text("Share Trip"),
                 icon: const Icon(Icons.share_outlined),
               ),

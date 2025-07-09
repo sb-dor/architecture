@@ -4,9 +4,7 @@ import 'package:architectures/data/repositories/destination/destination_reposito
 import 'package:architectures/data/repositories/itinerary_config/itinerary_config_repository.dart';
 import 'package:architectures/models/booking.dart';
 import 'package:architectures/models/destination.dart';
-import 'package:architectures/utils/date_format_start_end.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -107,14 +105,8 @@ class BookingController extends ChangeNotifier {
     return result.firstWhere((destination) => destination.ref == destinationRef);
   }
 
-  Future<void> shareBooking() async {
+  Future<void> shareBooking(final String text) async {
     if (_booking == null) return;
-    final text =
-        'Trip to ${_booking!.destination?.name ?? ''}\n'
-        'on ${dateFormatStartEnd(DateTimeRange(start: _booking!.startDate, end: _booking!.endDate))}\n'
-        'Activities:\n'
-        '${_booking!.activities.map((a) => ' - ${a.name}').join('\n')}.';
-
     _logger.log(Level.debug, 'Sharing booking: $text');
     try {
       await SharePlus.instance.share(ShareParams(text: text));

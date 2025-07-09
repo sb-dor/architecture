@@ -73,8 +73,6 @@ void main() {
         dependencies: TestActivitiesDependencyContainer(activitiesController: activitiesController),
       );
 
-      await activitiesController.loadActivities();
-
       await tester.pumpAndSettle();
 
       final findSeveralWidgets = find.byWidgetPredicate((widget) {
@@ -105,8 +103,6 @@ void main() {
         ActivitiesWidget(),
         dependencies: TestActivitiesDependencyContainer(activitiesController: activitiesController),
       );
-
-      await activitiesController.loadActivities();
 
       await tester.pumpAndSettle();
 

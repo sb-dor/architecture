@@ -79,8 +79,6 @@ void main() {
         ),
       );
 
-      await searchFormController.load();
-
       expect(searchFormController.continents.isNotEmpty, true);
 
       await tester.pumpAndSettle();

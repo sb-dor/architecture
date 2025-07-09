@@ -74,8 +74,6 @@ void main() {
         dependencies: TestResultsDependencyContainer(resultController: resultController),
       );
 
-      await resultController.search();
-
       await tester.pumpAndSettle();
 
       final findSeveralWidgets = find.byWidgetPredicate(

@@ -8,7 +8,9 @@ import 'package:architectures/data/services/destination/destination_service.dart
 import 'package:architectures/data/services/itinerary_config_service/itinerary_config_service.dart';
 import 'package:architectures/runner/models/dependency_container.dart';
 import 'package:architectures/ui/booking/controller/booking_controller.dart';
+import 'package:architectures/ui/booking/widgets/booking_widget.dart';
 import 'package:architectures/utils/internet_connection_checker_helper.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logger/logger.dart';
 import 'package:mockito/annotations.dart';
@@ -92,6 +94,7 @@ void main() {
   group('Booking widget test', () {
     //
     testWidgets('Booking test widget without sending id to the widget', (tester) async {
+      //
       when(mockInternetConnectionCheckerHelper.hasAccessToInternet()).thenAnswer((_) async => true);
 
       when(
@@ -102,11 +105,22 @@ void main() {
         mockIDestinationRemoteService.getDestinations(),
       ).thenAnswer((_) async => [kDestination1, kDestination2]);
 
-      when(
-        mockIActivitiesRemoteService.getByDestination(any),
-      ).thenAnswer((_) async => [kActivity]);
+      when(mockIActivitiesRemoteService.getByDestination(any)).thenAnswer((_) async => [kActivity]);
 
-      when(mockIBookingRemoteService.createBooking(any));
+      when(mockIBookingRemoteService.createBooking(any)).thenAnswer((_) async => true);
+
+      await TestWidgetController(tester).pumpWidget(
+        const BookingWidget(),
+        dependencies: TestBookingDependencyContainer(bookingController: bookingController),
+      );
+
+      await tester.pumpAndSettle();
+
+      expect(bookingController.booking, isNotNull);
+
+      final bodyRendered = find.byKey(ValueKey("booking_body_key"));
+
+      expect(bodyRendered, findsOneWidget);
     });
   });
 }

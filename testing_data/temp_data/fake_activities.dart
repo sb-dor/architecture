@@ -9,6 +9,6 @@ const kActivity = Activity(
   locationName: 'LOCATION NAME',
   name: 'NAME',
   price: 3,
-  ref: 'REF',
+  ref: 'DESTINATION',
   timeOfDay: TimeOfDay.afternoon,
 );

@@ -1,7 +1,7 @@
 import 'package:architectures/models/destination.dart';
 
 final kDestination1 = Destination(
-  ref: 'ref1',
+  ref: 'DESTINATION',
   name: 'name1',
   country: 'country1',
   continent: 'Europe',

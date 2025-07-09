@@ -73,7 +73,10 @@ class _BookingWidgetState extends State<BookingWidget> {
             }
             return child!;
           },
-          child: BookingBody(bookingController: _bookingController),
+          child: BookingBody(
+            key: ValueKey("booking_body_key"),
+            bookingController: _bookingController,
+          ),
         ),
       ),
     );

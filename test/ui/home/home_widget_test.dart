@@ -84,18 +84,18 @@ void main() {
 
   group('HomeWidgetTest', () {
     testWidgets('HomeWidgetTestWithoutTestWidgetController', (tester) async {
+      when(mockedUserRemoteService.user()).thenAnswer((_) async => kUser);
+
+      when(mockedBookingRemoteService.getBookingsList()).thenAnswer((_) async => [kBookingSummary]);
+
+      when(mockedInternetConnectionChecker.hasAccessToInternet()).thenAnswer((_) async => true);
+
       // Because of I use sizzle_starter's pumpWidget from test/helpers/test_widget_controller.dart
       // I initiate app here for a while
       app = TestAppWidget(
         dependencyContainer: HomeTestDependencyContainer(homeController: homeController),
         widget: HomeWidget(),
       );
-
-      when(mockedUserRemoteService.user()).thenAnswer((_) async => kUser);
-
-      when(mockedBookingRemoteService.getBookingsList()).thenAnswer((_) async => [kBookingSummary]);
-
-      when(mockedInternetConnectionChecker.hasAccessToInternet()).thenAnswer((_) async => true);
 
       await homeController.load();
 

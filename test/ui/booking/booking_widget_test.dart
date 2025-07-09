@@ -12,6 +12,10 @@ import 'package:architectures/utils/internet_connection_checker_helper.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logger/logger.dart';
 import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
+import '../../../testing_data/temp_data/fake_activities.dart';
+import '../../../testing_data/temp_data/fake_destination.dart';
+import '../../../testing_data/temp_data/fake_itinerary_config.dart';
 import '../../helpers/test_widget_controller.dart';
 import 'booking_widget_test.mocks.dart';
 
@@ -83,5 +87,26 @@ void main() {
       activitiesRepository: activitiesRepository,
       logger: Logger(),
     );
+  });
+
+  group('Booking widget test', () {
+    //
+    testWidgets('Booking test widget without sending id to the widget', (tester) async {
+      when(mockInternetConnectionCheckerHelper.hasAccessToInternet()).thenAnswer((_) async => true);
+
+      when(
+        mockIItineraryConfigService.getItineraryConfig(),
+      ).thenAnswer((_) async => fakeItineraryConfig);
+
+      when(
+        mockIDestinationRemoteService.getDestinations(),
+      ).thenAnswer((_) async => [kDestination1, kDestination2]);
+
+      when(
+        mockIActivitiesRemoteService.getByDestination(any),
+      ).thenAnswer((_) async => [kActivity]);
+
+      when(mockIBookingRemoteService.createBooking(any));
+    });
   });
 }

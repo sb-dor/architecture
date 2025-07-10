@@ -18,11 +18,16 @@ class ItineraryConfig {
   factory ItineraryConfig.fromJson(Map<String, dynamic> json) {
     return ItineraryConfig(
       continent: json['continent'] as String?,
-      startDate: json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
+      startDate:
+          json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
       endDate: json['endDate'] != null ? DateTime.parse(json['endDate']) : null,
       guests: json['guests'] as int?,
       destination: json['destination'] as String?,
-      activities: (json['activities'] as List<dynamic>?)?.map((e) => e as String).toList() ?? [],
+      activities:
+          (json['activities'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          [],
     );
   }
 

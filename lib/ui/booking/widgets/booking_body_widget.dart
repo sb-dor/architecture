@@ -52,7 +52,11 @@ class _Activity extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
-            child: CachedNetworkImage(imageUrl: activity.imageUrl, height: 80, width: 80),
+            child: CachedNetworkImage(
+              imageUrl: activity.imageUrl,
+              height: 80,
+              width: 80,
+            ),
           ),
           const SizedBox(width: 20),
           Expanded(

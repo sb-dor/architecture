@@ -58,7 +58,8 @@ final class BookingRemoteService implements IBookingService {
     );
     if (request.statusCode == 200) {
       final json = jsonDecode(request.body) as List<dynamic>;
-      final bookings = json.map((element) => BookingSummary.fromJson(element)).toList();
+      final bookings =
+          json.map((element) => BookingSummary.fromJson(element)).toList();
       return bookings;
     }
 

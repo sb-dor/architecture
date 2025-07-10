@@ -28,7 +28,8 @@ final class BookingRepositoryImpl implements IBookingRepository {
 
   @override
   Future<bool> createBooking(Booking booking) async {
-    final hasInternet = await _internetConnectionCheckerHelper.hasAccessToInternet();
+    final hasInternet =
+        await _internetConnectionCheckerHelper.hasAccessToInternet();
     if (hasInternet) {
       return _bookingRemoteService.createBooking(booking);
     } else {
@@ -38,7 +39,8 @@ final class BookingRepositoryImpl implements IBookingRepository {
 
   @override
   Future<void> delete(int id) async {
-    final hasInternet = await _internetConnectionCheckerHelper.hasAccessToInternet();
+    final hasInternet =
+        await _internetConnectionCheckerHelper.hasAccessToInternet();
     if (hasInternet) {
       return _bookingRemoteService.delete(id);
     } else {
@@ -48,7 +50,8 @@ final class BookingRepositoryImpl implements IBookingRepository {
 
   @override
   Future<Booking?> getBooking(int id) async {
-    final hasInternet = await _internetConnectionCheckerHelper.hasAccessToInternet();
+    final hasInternet =
+        await _internetConnectionCheckerHelper.hasAccessToInternet();
     if (hasInternet) {
       return _bookingRemoteService.getBooking(id);
     } else {
@@ -58,7 +61,8 @@ final class BookingRepositoryImpl implements IBookingRepository {
 
   @override
   Future<List<BookingSummary>> getBookingsList() async {
-    final hasInternet = await _internetConnectionCheckerHelper.hasAccessToInternet();
+    final hasInternet =
+        await _internetConnectionCheckerHelper.hasAccessToInternet();
     if (hasInternet) {
       return _bookingRemoteService.getBookingsList();
     } else {

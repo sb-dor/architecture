@@ -32,7 +32,9 @@ class _AppSearchBarState extends State<AppSearchBar> {
                 borderRadius: BorderRadius.circular(16.0),
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: Dimens.paddingHorizontal),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: Dimens.paddingHorizontal,
+                ),
                 child: Align(
                   alignment: AlignmentDirectional.centerStart,
                   child: _QueryText(config: widget.config),
@@ -60,7 +62,10 @@ class _QueryText extends StatelessWidget {
     }
 
     final ItineraryConfig(:continent, :startDate, :endDate, :guests) = config!;
-    if (startDate == null || endDate == null || guests == null || continent == null) {
+    if (startDate == null ||
+        endDate == null ||
+        guests == null ||
+        continent == null) {
       return const _EmptySearch();
     }
 

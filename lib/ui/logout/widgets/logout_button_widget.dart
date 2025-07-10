@@ -51,7 +51,11 @@ class _LogoutButtonState extends State<LogoutButton> {
             _logoutController.logout(onLogoutError: _onLogoutError);
           },
           child: Center(
-            child: Icon(size: 24.0, Icons.logout, color: Theme.of(context).colorScheme.onSurface),
+            child: Icon(
+              size: 24.0,
+              Icons.logout,
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
           ),
         ),
       ),

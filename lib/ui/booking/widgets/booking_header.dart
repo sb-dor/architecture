@@ -31,7 +31,10 @@ class BookingHeader extends StatelessWidget {
         const SizedBox(height: Dimens.paddingVertical),
         Padding(
           padding: Dimens.of(context).edgeInsetsScreenHorizontal,
-          child: Text("Your chosen activities", style: Theme.of(context).textTheme.headlineSmall),
+          child: Text(
+            "Your chosen activities",
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
         ),
       ],
     );
@@ -113,9 +116,14 @@ class _Headline extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(booking.destination?.name ?? '', style: Theme.of(context).textTheme.headlineLarge),
             Text(
-              dateFormatStartEnd(DateTimeRange(start: booking.startDate, end: booking.endDate)),
+              booking.destination?.name ?? '',
+              style: Theme.of(context).textTheme.headlineLarge,
+            ),
+            Text(
+              dateFormatStartEnd(
+                DateTimeRange(start: booking.startDate, end: booking.endDate),
+              ),
               style: Theme.of(context).textTheme.headlineSmall,
             ),
           ],
@@ -132,7 +140,10 @@ class _HeaderImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CachedNetworkImage(fit: BoxFit.fitWidth, imageUrl: booking.destination?.imageURL ?? '');
+    return CachedNetworkImage(
+      fit: BoxFit.fitWidth,
+      imageUrl: booking.destination?.imageURL ?? '',
+    );
   }
 }
 

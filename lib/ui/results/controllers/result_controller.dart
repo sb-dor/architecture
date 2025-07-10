@@ -36,7 +36,10 @@ class ResultController extends ChangeNotifier {
     final result = await _destinationRepository.getDestinations();
     _destinations =
         result
-            .where((destination) => destination.continent == _itineraryConfig!.continent)
+            .where(
+              (destination) =>
+                  destination.continent == _itineraryConfig!.continent,
+            )
             .toList();
     _logger.log(Level.debug, 'Destinations (${_destinations.length}) loaded');
     notifyListeners();

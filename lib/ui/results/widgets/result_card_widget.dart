@@ -5,7 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ResultCardWidget extends StatelessWidget {
-  const ResultCardWidget({super.key, required this.destination, required this.onTap});
+  const ResultCardWidget({
+    super.key,
+    required this.destination,
+    required this.onTap,
+  });
 
   final Destination destination;
   final GestureTapCallback onTap;
@@ -37,7 +41,7 @@ class ResultCardWidget extends StatelessWidget {
                   runSpacing: 4.0,
                   direction: Axis.horizontal,
                   children:
-                  destination.tags.map((e) => TagChip(tag: e)).toList(),
+                      destination.tags.map((e) => TagChip(tag: e)).toList(),
                 ),
               ],
             ),

@@ -7,7 +7,9 @@ import 'package:logger/logger.dart';
 
 class AppRunner {
   Future<void> run() async {
-    final logger = appLogger(kReleaseMode ? NoOpLogFilter() : DevelopmentFilter());
+    final logger = appLogger(
+      kReleaseMode ? NoOpLogFilter() : DevelopmentFilter(),
+    );
     await runZonedGuarded(
       () async {
         final widgetBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +25,12 @@ class AppRunner {
       },
       (error, stackTrace) {
         // log errors and stackTrace
-        logger.log(Level.debug, "Error occurred:", error: error, stackTrace: stackTrace);
+        logger.log(
+          Level.debug,
+          "Error occurred:",
+          error: error,
+          stackTrace: stackTrace,
+        );
       },
     );
   }

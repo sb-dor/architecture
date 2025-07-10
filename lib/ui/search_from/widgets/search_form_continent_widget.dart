@@ -12,7 +12,8 @@ class SearchFormContinentWidget extends StatefulWidget {
   const SearchFormContinentWidget({super.key});
 
   @override
-  State<SearchFormContinentWidget> createState() => _SearchFormContinentWidgetState();
+  State<SearchFormContinentWidget> createState() =>
+      _SearchFormContinentWidgetState();
 }
 
 class _SearchFormContinentWidgetState extends State<SearchFormContinentWidget> {
@@ -53,7 +54,8 @@ class _SearchFormContinentWidgetState extends State<SearchFormContinentWidget> {
               itemCount: _searchFormController.continents.length,
               padding: Dimens.of(context).edgeInsetsScreenHorizontal,
               itemBuilder: (BuildContext context, int index) {
-                final Continent(:imageUrl, :name) = _searchFormController.continents[index];
+                final Continent(:imageUrl, :name) =
+                    _searchFormController.continents[index];
                 return _CarouselItem(
                   key: ValueKey("continent_key_name_$name"),
                   imageUrl: imageUrl,

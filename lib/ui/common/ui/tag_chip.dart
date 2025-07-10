@@ -35,7 +35,7 @@ class TagChip extends StatelessWidget {
         child: DecoratedBox(
           decoration: BoxDecoration(
             color:
-            chipColor ??
+                chipColor ??
                 Theme.of(context).extension<TagChipTheme>()?.chipColor ??
                 AppColors.whiteTransparent,
           ),
@@ -50,7 +50,7 @@ class TagChip extends StatelessWidget {
                   Icon(
                     _iconFrom(tag),
                     color:
-                    onChipColor ??
+                        onChipColor ??
                         Theme.of(
                           context,
                         ).extension<TagChipTheme>()?.onChipColor ??
@@ -104,7 +104,7 @@ class TagChip extends StatelessWidget {
       fontWeight: FontWeight.w500,
       fontSize: fontSize,
       color:
-      onChipColor ??
+          onChipColor ??
           Theme.of(context).extension<TagChipTheme>()?.onChipColor ??
           Colors.white,
       textBaseline: TextBaseline.alphabetic,
@@ -131,9 +131,9 @@ class TagChipTheme extends ThemeExtension<TagChipTheme> {
 
   @override
   ThemeExtension<TagChipTheme> lerp(
-      covariant ThemeExtension<TagChipTheme> other,
-      double t,
-      ) {
+    covariant ThemeExtension<TagChipTheme> other,
+    double t,
+  ) {
     if (other is! TagChipTheme) {
       return this;
     }

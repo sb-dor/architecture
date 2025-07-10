@@ -28,7 +28,8 @@ final class DestinationRemoteService implements IDestinationService {
     debugPrint("requst from des: ${request.body}");
     if (request.statusCode == 200) {
       final json = jsonDecode(request.body) as List<dynamic>;
-      destinations = json.map((element) => Destination.fromJson(element)).toList();
+      destinations =
+          json.map((element) => Destination.fromJson(element)).toList();
     }
     return destinations;
   }

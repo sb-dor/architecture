@@ -21,7 +21,8 @@ final class ContinentRepositoryImpl implements IContinentRepository {
 
   @override
   Future<List<Continent>> getContinents() async {
-    final hasInternetConnection = await _internetConnectionCheckerHelper.hasAccessToInternet();
+    final hasInternetConnection =
+        await _internetConnectionCheckerHelper.hasAccessToInternet();
     if (hasInternetConnection) {
       return _continentRemoteService.getContinents();
     } else {

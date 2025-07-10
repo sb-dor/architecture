@@ -43,7 +43,9 @@ class _ResultWidgetState extends State<ResultWidget> {
               children: [
                 _AppSearchBar(resultController: _resultController),
                 if (_resultController.searching)
-                  const Expanded(child: Center(child: CircularProgressIndicator())),
+                  const Expanded(
+                    child: Center(child: CircularProgressIndicator()),
+                  ),
               ],
             );
           },
@@ -54,7 +56,9 @@ class _ResultWidgetState extends State<ResultWidget> {
                 padding: Dimens.of(context).edgeInsetsScreenHorizontal,
                 child: CustomScrollView(
                   slivers: [
-                    SliverToBoxAdapter(child: _AppSearchBar(resultController: _resultController)),
+                    SliverToBoxAdapter(
+                      child: _AppSearchBar(resultController: _resultController),
+                    ),
                     _Grid(resultController: _resultController),
                   ],
                 ),
@@ -129,7 +133,10 @@ class _Grid extends StatelessWidget {
           destination: destination,
           onTap: () {
             resultController.updateItineraryConfig(destination.ref);
-            Navigator.push(context, MaterialPageRoute(builder: (context) => ActivitiesWidget()));
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ActivitiesWidget()),
+            );
           },
         );
       }, childCount: resultController.destinations.length),

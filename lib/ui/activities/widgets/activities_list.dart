@@ -36,7 +36,9 @@ class ActivitiesList extends StatelessWidget {
             child: ActivityEntry(
               key: ValueKey("activities_item_${activity.ref}"),
               activity: activity,
-              selected: activitiesController.selectedActivities.contains(activity.ref),
+              selected: activitiesController.selectedActivities.contains(
+                activity.ref,
+              ),
               onChanged: (value) {
                 if (value!) {
                   activitiesController.addActivity(activity.ref);

@@ -46,7 +46,9 @@ class _SearchFormGuestsState extends State<SearchFormGuests> {
           borderRadius: BorderRadius.circular(16.0),
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: Dimens.paddingHorizontal),
+          padding: const EdgeInsets.symmetric(
+            horizontal: Dimens.paddingHorizontal,
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -77,7 +79,10 @@ class _QuantitySelector extends StatelessWidget {
             onTap: () {
               searchFormController.guests--;
             },
-            child: const Icon(Icons.remove_circle_outline, color: AppColors.grey3),
+            child: const Icon(
+              Icons.remove_circle_outline,
+              color: AppColors.grey3,
+            ),
           ),
           ListenableBuilder(
             listenable: searchFormController,

@@ -53,7 +53,9 @@ class ActivitiesController extends ChangeNotifier {
 
     _selectedActivities.addAll(result.activities);
 
-    final resultActivities = await _activityRepository.getByDestination(destinationRef);
+    final resultActivities = await _activityRepository.getByDestination(
+      destinationRef,
+    );
 
     if (resultActivities.isNotEmpty) {
       _daytimeActivities =
@@ -70,7 +72,10 @@ class ActivitiesController extends ChangeNotifier {
       _eveningActivities =
           resultActivities
               .where(
-                (activity) => [TimeOfDay.evening, TimeOfDay.night].contains(activity.timeOfDay),
+                (activity) => [
+                  TimeOfDay.evening,
+                  TimeOfDay.night,
+                ].contains(activity.timeOfDay),
               )
               .toList();
 
@@ -90,7 +95,9 @@ class ActivitiesController extends ChangeNotifier {
   /// Add [Activity] to selected list.
   void addActivity(String activityRef) {
     assert(
-      (_daytimeActivities + _eveningActivities).any((activity) => activity.ref == activityRef),
+      (_daytimeActivities + _eveningActivities).any(
+        (activity) => activity.ref == activityRef,
+      ),
       "Activity $activityRef not found",
     );
     _selectedActivities.add(activityRef);
@@ -101,7 +108,9 @@ class ActivitiesController extends ChangeNotifier {
   /// Remove [Activity] from selected list.
   void removeActivity(String activityRef) {
     assert(
-      (_daytimeActivities + _eveningActivities).any((activity) => activity.ref == activityRef),
+      (_daytimeActivities + _eveningActivities).any(
+        (activity) => activity.ref == activityRef,
+      ),
       "Activity $activityRef not found",
     );
     _selectedActivities.remove(activityRef);

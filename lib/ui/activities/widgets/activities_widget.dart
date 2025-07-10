@@ -45,7 +45,9 @@ class _ActivitiesWidgetState extends State<ActivitiesWidget> {
               children: [
                 const ActivitiesHeader(),
                 if (_activitiesController.loading)
-                  const Expanded(child: Center(child: CircularProgressIndicator())),
+                  const Expanded(
+                    child: Center(child: CircularProgressIndicator()),
+                  ),
               ],
             );
           },

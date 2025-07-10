@@ -26,7 +26,8 @@ class HomeController extends ChangeNotifier {
   /// list directly.
   List<BookingSummary> _bookingSummary = [];
 
-  UnmodifiableListView<BookingSummary> get bookingSummary => UnmodifiableListView(_bookingSummary);
+  UnmodifiableListView<BookingSummary> get bookingSummary =>
+      UnmodifiableListView(_bookingSummary);
 
   String? _error;
 

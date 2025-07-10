@@ -32,7 +32,9 @@ import 'package:architectures/utils/internet_connection_checker_helper.dart';
 import 'package:architectures/utils/shared_preferences_helper.dart';
 import 'package:logger/logger.dart';
 
-Future<DependencyContainer> composeDependencies({required Logger logger}) async {
+Future<DependencyContainer> composeDependencies({
+  required Logger logger,
+}) async {
   final sharedPreferencesHelper = SharedPreferencesHelper();
   await sharedPreferencesHelper.init();
 
@@ -82,7 +84,9 @@ IAuthRepository authRepository() {
 IBookingRepository bookingRepositoryFactory() {
   final mainUrl = const String.fromEnvironment("MAIN_URL");
   log("main url is: $mainUrl");
-  final IBookingService bookingRemoteService = BookingRemoteService(mainUrl: mainUrl);
+  final IBookingService bookingRemoteService = BookingRemoteService(
+    mainUrl: mainUrl,
+  );
   final IBookingService bookingLocalService = BookingLocalService();
   final internetConnectionCheckerHelper = InternetConnectionCheckerHelper();
 
@@ -109,7 +113,9 @@ IUserRepository userRepositoryFactory() {
 // if it's necessary somewhere else
 IContinentRepository continentRepository() {
   final mainUrl = const String.fromEnvironment("MAIN_URL");
-  final IContinentService continentRemoteService = ContinentRemoteService(mainUrl: mainUrl);
+  final IContinentService continentRemoteService = ContinentRemoteService(
+    mainUrl: mainUrl,
+  );
   final IContinentService continentLocalService = ContinentLocalService();
   final internetConnectionCheckerHelper = InternetConnectionCheckerHelper();
 
@@ -124,16 +130,21 @@ IItineraryConfigRepository itineraryConfigRepository({
   required Logger logger,
   required SharedPreferencesHelper sharedPreferencesHelper,
 }) {
-  final IItineraryConfigService iItineraryConfigService = ItineraryConfigServiceImpl(
-    logger: logger,
-    sharedPreferencesHelper: sharedPreferencesHelper,
+  final IItineraryConfigService iItineraryConfigService =
+      ItineraryConfigServiceImpl(
+        logger: logger,
+        sharedPreferencesHelper: sharedPreferencesHelper,
+      );
+  return ItineraryConfigRepositoryImpl(
+    iItineraryConfigService: iItineraryConfigService,
   );
-  return ItineraryConfigRepositoryImpl(iItineraryConfigService: iItineraryConfigService);
 }
 
 IDestinationRepository destinationRepository() {
   final String mainUrl = const String.fromEnvironment("MAIN_URL");
-  final IDestinationService destinationRemoteService = DestinationRemoteService(mainUrl: mainUrl);
+  final IDestinationService destinationRemoteService = DestinationRemoteService(
+    mainUrl: mainUrl,
+  );
   final IDestinationService destinationLocalService = DestinationLocalService();
   final internetConnectionCheckerHelper = InternetConnectionCheckerHelper();
 
@@ -146,7 +157,9 @@ IDestinationRepository destinationRepository() {
 
 IActivitiesRepository activitiesRepository() {
   final String mainUrl = const String.fromEnvironment("MAIN_URL");
-  final IActivitiesService activitiesRemoteService = ActivitiesRemoteService(mainUrl: mainUrl);
+  final IActivitiesService activitiesRemoteService = ActivitiesRemoteService(
+    mainUrl: mainUrl,
+  );
   final IActivitiesService activitiesLocalService = ActivitiesLocalService();
   final internetConnectionCheckerHelper = InternetConnectionCheckerHelper();
   return ActivitiesRepositoryImpl(

@@ -45,7 +45,9 @@ class _SearchFormDateWidgetState extends State<SearchFormDateWidget> {
             borderRadius: BorderRadius.circular(16.0),
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: Dimens.paddingHorizontal),
+            padding: const EdgeInsets.symmetric(
+              horizontal: Dimens.paddingHorizontal,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

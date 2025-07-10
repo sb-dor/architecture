@@ -29,7 +29,8 @@ final class AuthRepositoryImpl implements IAuthRepository {
 
   @override
   Future<User?> login({required String email, required String password}) async {
-    final hasInternetAccess = await _internetConnectionCheckerHelper.hasAccessToInternet();
+    final hasInternetAccess =
+        await _internetConnectionCheckerHelper.hasAccessToInternet();
     if (hasInternetAccess) {
       return _authRemoteService.login(email: email, password: password);
     } else {
@@ -39,7 +40,8 @@ final class AuthRepositoryImpl implements IAuthRepository {
 
   @override
   Future<bool> logout() async {
-    final hasInternetAccess = await _internetConnectionCheckerHelper.hasAccessToInternet();
+    final hasInternetAccess =
+        await _internetConnectionCheckerHelper.hasAccessToInternet();
     if (hasInternetAccess) {
       return _authRemoteService.logout();
     } else {

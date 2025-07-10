@@ -23,17 +23,21 @@ final class ItineraryConfigServiceImpl implements IItineraryConfigService {
 
   @override
   Future<ItineraryConfig> getItineraryConfig() async {
-    final String? itineraryConfigValueString = _sharedPreferencesHelper.getString(
-      Constants.itineraryConfigKey,
-    );
+    final String? itineraryConfigValueString = _sharedPreferencesHelper
+        .getString(Constants.itineraryConfigKey);
     if (itineraryConfigValueString != null) {
-      final Map<String, dynamic> itineraryConfigValue = jsonDecode(itineraryConfigValueString);
+      final Map<String, dynamic> itineraryConfigValue = jsonDecode(
+        itineraryConfigValueString,
+      );
       return ItineraryConfig.fromJson(itineraryConfigValue);
     }
     return ItineraryConfig();
   }
 
   @override
-  Future<void> setItineraryConfig(ItineraryConfig itineraryConfig) => _sharedPreferencesHelper
-      .saveString(Constants.itineraryConfigKey, jsonEncode(itineraryConfig.toJson()));
+  Future<void> setItineraryConfig(ItineraryConfig itineraryConfig) =>
+      _sharedPreferencesHelper.saveString(
+        Constants.itineraryConfigKey,
+        jsonEncode(itineraryConfig.toJson()),
+      );
 }

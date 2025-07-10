@@ -21,7 +21,8 @@ final class ActivitiesRepositoryImpl implements IActivitiesRepository {
 
   @override
   Future<List<Activity>> getByDestination(String ref) async {
-    final hasInternetAccess = await _internetConnectionCheckerHelper.hasAccessToInternet();
+    final hasInternetAccess =
+        await _internetConnectionCheckerHelper.hasAccessToInternet();
     if (hasInternetAccess) {
       return _activitiesRemoteService.getByDestination(ref);
     } else {

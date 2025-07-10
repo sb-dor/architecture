@@ -7,14 +7,17 @@ abstract interface class IItineraryConfigRepository {
   Future<void> setItineraryConfig(ItineraryConfig itineraryConfig);
 }
 
-final class ItineraryConfigRepositoryImpl implements IItineraryConfigRepository {
-  ItineraryConfigRepositoryImpl({required IItineraryConfigService iItineraryConfigService})
-    : _iItineraryConfigService = iItineraryConfigService;
+final class ItineraryConfigRepositoryImpl
+    implements IItineraryConfigRepository {
+  ItineraryConfigRepositoryImpl({
+    required IItineraryConfigService iItineraryConfigService,
+  }) : _iItineraryConfigService = iItineraryConfigService;
 
   final IItineraryConfigService _iItineraryConfigService;
 
   @override
-  Future<ItineraryConfig> getItineraryConfig() => _iItineraryConfigService.getItineraryConfig();
+  Future<ItineraryConfig> getItineraryConfig() =>
+      _iItineraryConfigService.getItineraryConfig();
 
   @override
   Future<void> setItineraryConfig(ItineraryConfig itineraryConfig) =>

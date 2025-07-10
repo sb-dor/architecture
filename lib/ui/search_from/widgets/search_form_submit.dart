@@ -58,7 +58,10 @@ class _SearchFormSubmitState extends State<SearchFormSubmit> {
             child: SizedBox(
               height: 52,
               child: Center(
-                child: _searchFormController.valid ? Text("Search selected data") : Text("Search"),
+                child:
+                    _searchFormController.valid
+                        ? Text("Search selected data")
+                        : Text("Search"),
               ),
             ),
           );
@@ -71,7 +74,10 @@ class _SearchFormSubmitState extends State<SearchFormSubmit> {
     if (!mounted) return;
     // _searchFormController.updateItineraryConfig.clearResult();
     // context.go(Routes.results);
-    Navigator.push(context, MaterialPageRoute(builder: (context) => ResultWidget()));
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ResultWidget()),
+    );
 
     if (_searchFormController.error) {
       // widget.viewModel.updateItineraryConfig.clearResult();

@@ -21,7 +21,8 @@ final class DestinationRepositoryImpl implements IDestinationRepository {
 
   @override
   Future<List<Destination>> getDestinations() async {
-    final hasInternetAccess = await _internetConnectionCheckerHelper.hasAccessToInternet();
+    final hasInternetAccess =
+        await _internetConnectionCheckerHelper.hasAccessToInternet();
     if (hasInternetAccess) {
       return _destinationRemoteService.getDestinations();
     } else {

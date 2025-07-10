@@ -40,7 +40,8 @@ class BookingController extends ChangeNotifier {
     notifyListeners();
 
     _logger.log(Level.debug, 'Loading booking');
-    final itineraryConfig = await _itineraryConfigRepository.getItineraryConfig();
+    final itineraryConfig =
+        await _itineraryConfigRepository.getItineraryConfig();
 
     if (itineraryConfig.destination == null) {
       print("return des 1");
@@ -49,7 +50,9 @@ class BookingController extends ChangeNotifier {
       return;
     }
 
-    final destinationResult = await _fetchDestination(itineraryConfig.destination!);
+    final destinationResult = await _fetchDestination(
+      itineraryConfig.destination!,
+    );
 
     if (itineraryConfig.activities.isEmpty) {
       print("return activities");
@@ -64,7 +67,9 @@ class BookingController extends ChangeNotifier {
 
     final activities =
         activitiesResult
-            .where((activity) => itineraryConfig.activities.contains(activity.ref))
+            .where(
+              (activity) => itineraryConfig.activities.contains(activity.ref),
+            )
             .toList();
 
     if (itineraryConfig.startDate == null || itineraryConfig.endDate == null) {
@@ -102,7 +107,9 @@ class BookingController extends ChangeNotifier {
   Future<Destination> _fetchDestination(String destinationRef) async {
     final result = await _destinationRepository.getDestinations();
 
-    return result.firstWhere((destination) => destination.ref == destinationRef);
+    return result.firstWhere(
+      (destination) => destination.ref == destinationRef,
+    );
   }
 
   Future<void> shareBooking(final String text) async {

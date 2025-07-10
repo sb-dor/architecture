@@ -77,7 +77,9 @@ class _Title extends StatelessWidget {
           ).createShader(Rect.fromLTWH(0, 0, bounds.width, bounds.height)),
       child: Text(
         text,
-        style: GoogleFonts.rubik(textStyle: Theme.of(context).textTheme.headlineLarge),
+        style: GoogleFonts.rubik(
+          textStyle: Theme.of(context).textTheme.headlineLarge,
+        ),
       ),
     );
   }

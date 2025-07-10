@@ -57,7 +57,9 @@ class _BookingWidgetState extends State<BookingWidget> {
                       'on ${dateFormatStartEnd(DateTimeRange(start: _bookingController.booking!.startDate, end: _bookingController.booking!.endDate))}\n'
                       'Activities:\n'
                       '${_bookingController.booking!.activities.map((a) => ' - ${a.name}').join('\n')}.';
-                  _bookingController.booking != null ? _bookingController.shareBooking(text) : null;
+                  _bookingController.booking != null
+                      ? _bookingController.shareBooking(text)
+                      : null;
                 },
                 label: Text("Share Trip"),
                 icon: const Icon(Icons.share_outlined),

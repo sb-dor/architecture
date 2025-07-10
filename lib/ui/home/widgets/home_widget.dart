@@ -42,7 +42,11 @@ class _HomeWidgetState extends State<HomeWidget> {
         label: Text("Book New Trip"),
         icon: const Icon(Icons.add_location_outlined),
       ),
-      appBar: AppBar(title: Text("Home"), scrolledUnderElevation: 0.0, elevation: 0),
+      appBar: AppBar(
+        title: Text("Home"),
+        scrolledUnderElevation: 0.0,
+        elevation: 0,
+      ),
       body: SafeArea(
         child: ListenableBuilder(
           listenable: _homeController,
@@ -93,7 +97,11 @@ class _HomeWidgetState extends State<HomeWidget> {
 }
 
 class _Booking extends StatelessWidget {
-  const _Booking({required this.booking, required this.onTap, required this.confirmDismiss});
+  const _Booking({
+    required this.booking,
+    required this.onTap,
+    required this.confirmDismiss,
+  });
 
   final BookingSummary booking;
   final GestureTapCallback onTap;
@@ -129,7 +137,9 @@ class _Booking extends StatelessWidget {
             children: [
               Text(booking.name, style: Theme.of(context).textTheme.titleLarge),
               Text(
-                dateFormatStartEnd(DateTimeRange(start: booking.startDate, end: booking.endDate)),
+                dateFormatStartEnd(
+                  DateTimeRange(start: booking.startDate, end: booking.endDate),
+                ),
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
             ],

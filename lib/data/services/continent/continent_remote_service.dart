@@ -25,7 +25,8 @@ final class ContinentRemoteService implements IContinentService {
     debugPrint("coming continents: ${request.body}");
     if (request.statusCode == 200) {
       final json = jsonDecode(request.body) as List<dynamic>;
-      return continents = json.map((element) => Continent.fromJson(element)).toList();
+      return continents =
+          json.map((element) => Continent.fromJson(element)).toList();
     }
     return continents;
   }

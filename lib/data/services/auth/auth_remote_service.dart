@@ -4,7 +4,7 @@ import 'package:architectures/data/services/auth/auth_service.dart';
 import 'package:architectures/models/user.dart';
 import 'package:http/http.dart' as http;
 
-final class AuthRemoteService implements IAuthService {
+ class AuthRemoteService implements IAuthService {
   AuthRemoteService({required String mainUrl, http.Client? client})
     : _mainUrl = mainUrl,
       _client = client ?? http.Client();

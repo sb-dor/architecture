@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../../testing_data/temp_data/fake_user.dart';
+import '../../../../testing_data/temp_data/fake_user.dart';
 import 'auth_repository_test.mocks.dart';
 
 @GenerateMocks([IAuthService, InternetConnectionCheckerHelper])

@@ -4,7 +4,7 @@ import 'package:architectures/data/services/auth/auth_service.dart';
 import 'package:architectures/models/user.dart';
 import 'package:http/http.dart' as http;
 
- class AuthRemoteService implements IAuthService {
+class AuthRemoteService implements IAuthService {
   AuthRemoteService({required String mainUrl, http.Client? client})
     : _mainUrl = mainUrl,
       _client = client ?? http.Client();
@@ -13,8 +13,13 @@ import 'package:http/http.dart' as http;
   final String _mainUrl;
 
   @override
-  // TODO: implement isAuthenticated
-  Future<bool> get isAuthenticated => throw UnimplementedError();
+  Future<bool> get isAuthenticated async {
+    final request = await _client.get(Uri.parse('$_mainUrl/isAuthenticated'));
+    if (request.statusCode == 200) {
+      return true;
+    }
+    return false;
+  }
 
   @override
   Future<User?> login({required String email, required String password}) async {
@@ -29,8 +34,14 @@ import 'package:http/http.dart' as http;
   }
 
   @override
-  Future<bool> logout() {
-    // TODO: implement logout
-    throw UnimplementedError();
+  Future<bool> logout() async {
+    final request = await _client.post(Uri.parse('$_mainUrl/logout'));
+    if (request.statusCode == 200) {
+      final Map<String, dynamic> result = jsonDecode(request.body);
+      if (result.containsKey('success') && result['success'] == true) {
+        return true;
+      }
+    }
+    return false;
   }
 }

@@ -98,4 +98,37 @@ void main() async {
       verify(authLocalService.login(email: userEmail, password: userPassword)).called(1);
     });
   });
+
+  //
+  group('Logout method test', () {
+    //
+    test('Remote test', () async {
+      // arrange
+      when(internetConnectionCheckerHelper.hasAccessToInternet()).thenAnswer((_) async => true);
+      when(authRemoteService.logout()).thenAnswer((_) async => false);
+
+      // act
+      final logout = await iAuthRepository.logout();
+
+      // assert
+      expect(logout, isFalse);
+      verify(internetConnectionCheckerHelper.hasAccessToInternet()).called(1);
+      verify(authRemoteService.logout()).called(1);
+    });
+
+    //
+    test('Local test', () async {
+      // arrange
+      when(internetConnectionCheckerHelper.hasAccessToInternet()).thenAnswer((_) async => false);
+      when(authLocalService.logout()).thenAnswer((_) async => true);
+
+      // act
+      final logout = await iAuthRepository.logout();
+
+      // assert
+      expect(logout, isTrue);
+      verify(internetConnectionCheckerHelper.hasAccessToInternet()).called(1);
+      verify(authLocalService.logout()).called(1);
+    });
+  });
 }

@@ -1,24 +1,20 @@
+import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesHelper {
-  late final SharedPreferences _prefs;
+  SharedPreferencesHelper({required SharedPreferences sharedPreferences})
+    : _prefs = sharedPreferences;
 
-  Future<void> init() async {
-    _prefs = await SharedPreferences.getInstance();
-  }
+  final SharedPreferences _prefs;
 
   /// Save methods
-  Future<void> saveInt(String key, int value) async =>
-      await _prefs.setInt(key, value);
+  Future<void> saveInt(String key, int value) async => await _prefs.setInt(key, value);
 
-  Future<void> saveBool(String key, bool value) async =>
-      await _prefs.setBool(key, value);
+  Future<void> saveBool(String key, bool value) async => await _prefs.setBool(key, value);
 
-  Future<void> saveDouble(String key, double value) async =>
-      await _prefs.setDouble(key, value);
+  Future<void> saveDouble(String key, double value) async => await _prefs.setDouble(key, value);
 
-  Future<void> saveString(String key, String value) async =>
-      await _prefs.setString(key, value);
+  Future<void> saveString(String key, String value) async => await _prefs.setString(key, value);
 
   /// Get methods
   int? getInt(String key) => _prefs.getInt(key);

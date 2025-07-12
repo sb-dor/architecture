@@ -5,7 +5,7 @@ import 'package:architectures/utils/internet_connection_checker_helper.dart';
 abstract interface class IAuthRepository {
   Future<bool> get isAuthenticated;
 
-  Future<void> login({required String email, required String password});
+  Future<User?> login({required String email, required String password});
 
   Future<bool> logout();
 }
@@ -24,13 +24,18 @@ final class AuthRepositoryImpl implements IAuthRepository {
   final InternetConnectionCheckerHelper _internetConnectionCheckerHelper;
 
   @override
-  // TODO: implement isAuthenticated
-  Future<bool> get isAuthenticated => throw UnimplementedError();
+  Future<bool> get isAuthenticated async {
+    final hasInternetAccess = await _internetConnectionCheckerHelper.hasAccessToInternet();
+    if (hasInternetAccess) {
+      return _authRemoteService.isAuthenticated;
+    } else {
+      return _authLocalService.isAuthenticated;
+    }
+  }
 
   @override
   Future<User?> login({required String email, required String password}) async {
-    final hasInternetAccess =
-        await _internetConnectionCheckerHelper.hasAccessToInternet();
+    final hasInternetAccess = await _internetConnectionCheckerHelper.hasAccessToInternet();
     if (hasInternetAccess) {
       return _authRemoteService.login(email: email, password: password);
     } else {
@@ -40,8 +45,7 @@ final class AuthRepositoryImpl implements IAuthRepository {
 
   @override
   Future<bool> logout() async {
-    final hasInternetAccess =
-        await _internetConnectionCheckerHelper.hasAccessToInternet();
+    final hasInternetAccess = await _internetConnectionCheckerHelper.hasAccessToInternet();
     if (hasInternetAccess) {
       return _authRemoteService.logout();
     } else {

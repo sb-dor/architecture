@@ -1,13 +1,18 @@
 import 'package:architectures/data/repositories/auth/auth_repository.dart';
+import 'package:architectures/models/user.dart';
+
+import '../../temp_data/fake_user.dart';
 
 class FakeAuthRepository implements IAuthRepository {
   String? token;
 
-  // TODO: implement isAuthenticated
+  @override
   Future<bool> get isAuthenticated => Future.value(token != null);
 
   @override
-  Future<void> login({required String email, required String password}) async {}
+  Future<User?> login({required String email, required String password}) async {
+    return kUser;
+  }
 
   @override
   Future<bool> logout() {

@@ -5,6 +5,7 @@ import 'package:architectures/ui/logout/controllers/logout_controller.dart';
 import 'package:architectures/ui/results/controllers/result_controller.dart';
 import 'package:architectures/ui/search_from/controller/search_form_controller.dart';
 import 'package:architectures/utils/shared_preferences_helper.dart';
+import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 
 class DependencyContainer {
@@ -40,6 +41,7 @@ class DependencyContainer {
 ///
 /// In order to use [DependenciesContainer] in tests, it is needed to
 /// extend this class and provide the dependencies that are needed for the test.
+@visibleForTesting
 base class TestDependencyContainer implements DependencyContainer {
   @override
   noSuchMethod(Invocation invocation) {

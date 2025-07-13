@@ -39,7 +39,7 @@ Future<DependencyContainer> composeDependencies({required Logger logger}) async 
   );
 
   final dependencyContainer = DependencyContainer(
-    homeController: homeControllerFactory(),
+    homeController: homeControllerFactory(sharedPreferencesHelper: sharedPreferencesHelper),
     logoutController: logoutController(sharedPreferencesHelper: sharedPreferencesHelper),
     resultController: resultController(
       logger: logger,
@@ -83,11 +83,15 @@ IAuthRepository authRepository({required SharedPreferencesHelper sharedPreferenc
 }
 
 // if it's necessary somewhere else
-IBookingRepository bookingRepositoryFactory() {
+IBookingRepository bookingRepositoryFactory({
+  required SharedPreferencesHelper sharedPreferencesHelper,
+}) {
   final mainUrl = const String.fromEnvironment("MAIN_URL");
   log("main url is: $mainUrl");
   final IBookingService bookingRemoteService = BookingRemoteService(mainUrl: mainUrl);
-  final IBookingService bookingLocalService = BookingLocalService();
+  final IBookingService bookingLocalService = BookingLocalService(
+    sharedPreferencesHelper: sharedPreferencesHelper,
+  );
   final internetConnectionCheckerHelper = InternetConnectionCheckerHelper();
 
   return BookingRepositoryImpl(
@@ -184,9 +188,9 @@ SearchFormController searchFormController({
   );
 }
 
-HomeController homeControllerFactory() {
+HomeController homeControllerFactory({required SharedPreferencesHelper sharedPreferencesHelper}) {
   return HomeController(
-    bookingRepository: bookingRepositoryFactory(),
+    bookingRepository: bookingRepositoryFactory(sharedPreferencesHelper: sharedPreferencesHelper),
     userRepository: userRepositoryFactory(),
   );
 }
@@ -228,7 +232,7 @@ BookingController bookingController({
       logger: logger,
       sharedPreferencesHelper: sharedPreferencesHelper,
     ),
-    bookingRepository: bookingRepositoryFactory(),
+    bookingRepository: bookingRepositoryFactory(sharedPreferencesHelper: sharedPreferencesHelper),
     destinationRepository: destinationRepository(),
     activitiesRepository: activitiesRepository(sharedPreferencesHelper: sharedPreferencesHelper),
     logger: logger,

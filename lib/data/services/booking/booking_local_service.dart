@@ -1,29 +1,44 @@
+import 'dart:convert';
+
 import 'package:architectures/data/services/booking/booking_service.dart';
 import 'package:architectures/models/booking.dart';
 import 'package:architectures/models/booking_summary.dart';
+import 'package:architectures/utils/shared_preferences_helper.dart';
+import 'package:collection/collection.dart';
 
 final class BookingLocalService implements IBookingService {
+  BookingLocalService({required SharedPreferencesHelper sharedPreferencesHelper})
+    : _sharedPreferencesHelper = sharedPreferencesHelper;
+
+  final SharedPreferencesHelper _sharedPreferencesHelper;
+  static const _bookingsKey = 'bookings';
+
   @override
-  Future<bool> createBooking(Booking booking) {
-    // TODO: implement createBooking
-    throw UnimplementedError();
+  Future<bool> createBooking(Booking booking) async {
+    final encoded = jsonEncode(booking.toJson());
+    _sharedPreferencesHelper.saveString("${_bookingsKey}_${booking.id}", encoded);
+    return true;
   }
 
   @override
-  Future<void> delete(int id) {
-    // TODO: implement delete
-    throw UnimplementedError();
+  Future<void> delete(int id) async {
+    await _sharedPreferencesHelper.remove("${_bookingsKey}_$id");
   }
 
   @override
-  Future<Booking?> getBooking(int id) {
-    // TODO: implement getBooking
-    throw UnimplementedError();
+  Future<Booking?> getBooking(int id) async {
+    final booking = _sharedPreferencesHelper.getString("${_bookingsKey}_$id");
+    if (booking == null) return null;
+    return Booking.fromJson(jsonDecode(booking));
   }
 
   @override
-  Future<List<BookingSummary>> getBookingsList() {
-    // TODO: implement getBookingsList
-    throw UnimplementedError();
+  Future<List<BookingSummary>> getBookingsList() async {
+    final raw = _sharedPreferencesHelper.getString(_bookingsKey);
+    if (raw != null) {
+      final list = jsonDecode(raw) as List<dynamic>;
+      return list.map((e) => BookingSummary.fromJson(e)).toList();
+    }
+    return <BookingSummary>[];
   }
 }

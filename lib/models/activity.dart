@@ -61,10 +61,10 @@ class Activity {
     'description': description,
     'locationName': locationName,
     'duration': duration,
-    'time_of_day': timeOfDay.name,
-    'family_friendly': familyFriendly,
+    'timeOfDay': timeOfDay.name,
+    'familyFriendly': familyFriendly,
     'price': price,
-    'destination_ref': destinationRef,
+    'destinationRef': destinationRef,
     'ref': ref,
     'imageUrl': imageUrl,
   };

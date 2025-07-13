@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:architectures/models/activity.dart';
 import 'package:architectures/utils/constants.dart';
+import 'package:architectures/utils/shared_preferences_helper.dart';
 import "package:http/http.dart" as http;
 
 abstract interface class IActivitiesService {
@@ -10,10 +11,20 @@ abstract interface class IActivitiesService {
 }
 
 final class ActivitiesLocalService implements IActivitiesService {
+  ActivitiesLocalService({required SharedPreferencesHelper sharedPreferencesHelper})
+    : _sharedPreferencesHelper = sharedPreferencesHelper;
+
+  final SharedPreferencesHelper _sharedPreferencesHelper;
+
   @override
-  Future<List<Activity>> getByDestination(String ref) {
-    // TODO: implement getByDestination
-    throw UnimplementedError();
+  Future<List<Activity>> getByDestination(String ref) async {
+    final checkLocalSavedActivities = _sharedPreferencesHelper.getString('activities');
+    if (checkLocalSavedActivities != null) {
+      final json = jsonDecode(checkLocalSavedActivities) as List<dynamic>;
+      final activities = json.map((element) => Activity.fromJson(element)).toList();
+      return activities.where((element) => element.ref.contains(ref)).toList();
+    }
+    return <Activity>[];
   }
 }
 

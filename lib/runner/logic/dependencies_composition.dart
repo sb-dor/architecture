@@ -148,10 +148,14 @@ IDestinationRepository destinationRepository() {
   );
 }
 
-IActivitiesRepository activitiesRepository() {
+IActivitiesRepository activitiesRepository({
+  required SharedPreferencesHelper sharedPreferencesHelper,
+}) {
   final String mainUrl = const String.fromEnvironment("MAIN_URL");
   final IActivitiesService activitiesRemoteService = ActivitiesRemoteService(mainUrl: mainUrl);
-  final IActivitiesService activitiesLocalService = ActivitiesLocalService();
+  final IActivitiesService activitiesLocalService = ActivitiesLocalService(
+    sharedPreferencesHelper: sharedPreferencesHelper,
+  );
   final internetConnectionCheckerHelper = InternetConnectionCheckerHelper();
   return ActivitiesRepositoryImpl(
     activitiesRemoteService: activitiesRemoteService,
@@ -206,7 +210,7 @@ ActivitiesController activitiesController({
   required SharedPreferencesHelper sharedPreferencesHelper,
 }) {
   return ActivitiesController(
-    activityRepository: activitiesRepository(),
+    activityRepository: activitiesRepository(sharedPreferencesHelper: sharedPreferencesHelper),
     itineraryConfigRepository: itineraryConfigRepository(
       logger: logger,
       sharedPreferencesHelper: sharedPreferencesHelper,
@@ -226,7 +230,7 @@ BookingController bookingController({
     ),
     bookingRepository: bookingRepositoryFactory(),
     destinationRepository: destinationRepository(),
-    activitiesRepository: activitiesRepository(),
+    activitiesRepository: activitiesRepository(sharedPreferencesHelper: sharedPreferencesHelper),
     logger: logger,
   );
 }

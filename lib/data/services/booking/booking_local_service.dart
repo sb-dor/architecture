@@ -4,7 +4,6 @@ import 'package:architectures/data/services/booking/booking_service.dart';
 import 'package:architectures/models/booking.dart';
 import 'package:architectures/models/booking_summary.dart';
 import 'package:architectures/utils/shared_preferences_helper.dart';
-import 'package:collection/collection.dart';
 
 final class BookingLocalService implements IBookingService {
   BookingLocalService({required SharedPreferencesHelper sharedPreferencesHelper})
@@ -16,7 +15,7 @@ final class BookingLocalService implements IBookingService {
   @override
   Future<bool> createBooking(Booking booking) async {
     final encoded = jsonEncode(booking.toJson());
-    _sharedPreferencesHelper.saveString("${_bookingsKey}_${booking.id}", encoded);
+    await _sharedPreferencesHelper.saveString("${_bookingsKey}_${booking.id}", encoded);
     return true;
   }
 

@@ -35,7 +35,7 @@ void main() {
 
     //
     test('Test deletion', () {
-      when(mockSharedPreferencesHelper.remove(any)).thenAnswer((_) => Future<void>.value());
+      when(mockSharedPreferencesHelper.remove(any)).thenAnswer((_) async => true);
 
       final delete = bookingLocalService.delete(id);
 

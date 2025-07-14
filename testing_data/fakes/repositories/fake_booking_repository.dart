@@ -9,7 +9,7 @@ class FakeBookingRepositoryImpl implements IBookingRepository {
   Future<bool> createBooking(Booking booking) => Future.value(true);
 
   @override
-  Future<void> delete(int id) => Future.value(null);
+  Future<bool> delete(int id) => Future.value(true);
 
   @override
   Future<Booking?> getBooking(int id) => Future.value(kBooking);

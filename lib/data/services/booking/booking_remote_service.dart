@@ -23,7 +23,7 @@ final class BookingRemoteService implements IBookingService {
       body: jsonEncode(booking.toJson()),
     );
     print("coming requst create booking: ${request.body}");
-    if (request.statusCode == 201) {
+    if (request.statusCode == 200) {
       final booking = BookingSummary.fromJson(jsonDecode(request.body));
       return true;
     }
@@ -31,9 +31,15 @@ final class BookingRemoteService implements IBookingService {
   }
 
   @override
-  Future<void> delete(int id) {
-    // TODO: implement delete
-    throw UnimplementedError();
+  Future<bool> delete(int id) async {
+    final request = await _client.delete(
+      Uri.parse('$_mainUrl/booking/$id'),
+      headers: {HttpHeaders.authorizationHeader: "Bearer ${Constants.token}"},
+    );
+    if (request.statusCode == 200) {
+      return true;
+    }
+    return false;
   }
 
   @override
@@ -58,8 +64,7 @@ final class BookingRemoteService implements IBookingService {
     );
     if (request.statusCode == 200) {
       final json = jsonDecode(request.body) as List<dynamic>;
-      final bookings =
-          json.map((element) => BookingSummary.fromJson(element)).toList();
+      final bookings = json.map((element) => BookingSummary.fromJson(element)).toList();
       return bookings;
     }
 

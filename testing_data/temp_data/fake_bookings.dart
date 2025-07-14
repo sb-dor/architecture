@@ -5,6 +5,7 @@ import 'fake_activities.dart';
 import 'fake_destination.dart';
 
 final kBooking = Booking(
+  id: 1,
   startDate: DateTime(2024, 01, 01),
   endDate: DateTime(2024, 02, 12),
   destination: kDestination1,

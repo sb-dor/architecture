@@ -10,7 +10,7 @@ abstract interface class IBookingRepository {
 
   Future<bool> createBooking(Booking booking);
 
-  Future<void> delete(int id);
+  Future<bool> delete(int id);
 }
 
 final class BookingRepositoryImpl implements IBookingRepository {
@@ -38,7 +38,7 @@ final class BookingRepositoryImpl implements IBookingRepository {
   }
 
   @override
-  Future<void> delete(int id) async {
+  Future<bool> delete(int id) async {
     final hasInternet =
         await _internetConnectionCheckerHelper.hasAccessToInternet();
     if (hasInternet) {

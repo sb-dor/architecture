@@ -20,8 +20,9 @@ final class BookingLocalService implements IBookingService {
   }
 
   @override
-  Future<void> delete(int id) async {
+  Future<bool> delete(int id) async {
     await _sharedPreferencesHelper.remove("${_bookingsKey}_$id");
+    return true;
   }
 
   @override

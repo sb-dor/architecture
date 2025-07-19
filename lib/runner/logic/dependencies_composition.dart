@@ -102,9 +102,11 @@ IBookingRepository bookingRepositoryFactory({
 }
 
 // if it's necessary somewhere else
-IUserRepository userRepositoryFactory() {
+IUserRepository userRepositoryFactory({required SharedPreferencesHelper sharedPreferencesHelper}) {
   final IUserService userRemoteService = UserRemoteService();
-  final IUserService userLocalService = UserLocalService();
+  final IUserService userLocalService = UserLocalService(
+    sharedPreferencesHelper: sharedPreferencesHelper,
+  );
   final internetConnectionChecker = InternetConnectionCheckerHelper();
 
   return UserRepositoryImpl(
@@ -199,7 +201,7 @@ SearchFormController searchFormController({
 HomeController homeControllerFactory({required SharedPreferencesHelper sharedPreferencesHelper}) {
   return HomeController(
     bookingRepository: bookingRepositoryFactory(sharedPreferencesHelper: sharedPreferencesHelper),
-    userRepository: userRepositoryFactory(),
+    userRepository: userRepositoryFactory(sharedPreferencesHelper: sharedPreferencesHelper),
   );
 }
 

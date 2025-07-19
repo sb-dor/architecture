@@ -115,10 +115,14 @@ IUserRepository userRepositoryFactory() {
 }
 
 // if it's necessary somewhere else
-IContinentRepository continentRepository() {
+IContinentRepository continentRepository({
+  required SharedPreferencesHelper sharedPreferencesHelper,
+}) {
   final mainUrl = const String.fromEnvironment("MAIN_URL");
   final IContinentService continentRemoteService = ContinentRemoteService(mainUrl: mainUrl);
-  final IContinentService continentLocalService = ContinentLocalService();
+  final IContinentService continentLocalService = ContinentLocalService(
+    sharedPreferencesHelper: sharedPreferencesHelper,
+  );
   final internetConnectionCheckerHelper = InternetConnectionCheckerHelper();
 
   return ContinentRepositoryImpl(
@@ -179,7 +183,7 @@ SearchFormController searchFormController({
   required SharedPreferencesHelper sharedPreferencesHelper,
 }) {
   return SearchFormController(
-    continentRepository: continentRepository(),
+    continentRepository: continentRepository(sharedPreferencesHelper: sharedPreferencesHelper),
     itineraryConfigRepository: itineraryConfigRepository(
       logger: logger,
       sharedPreferencesHelper: sharedPreferencesHelper,

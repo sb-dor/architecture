@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:architectures/data/services/continent/continent_service.dart';
 import 'package:architectures/data/services/destination/destination_service.dart';
 import 'package:architectures/models/destination.dart';
 import 'package:architectures/utils/shared_preferences_helper.dart';

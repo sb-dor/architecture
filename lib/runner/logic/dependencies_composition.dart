@@ -103,7 +103,8 @@ IBookingRepository bookingRepositoryFactory({
 
 // if it's necessary somewhere else
 IUserRepository userRepositoryFactory({required SharedPreferencesHelper sharedPreferencesHelper}) {
-  final IUserService userRemoteService = UserRemoteService();
+  final mainUrl = const String.fromEnvironment("MAIN_URL");
+  final IUserService userRemoteService = UserRemoteService(mainUrl: mainUrl);
   final IUserService userLocalService = UserLocalService(
     sharedPreferencesHelper: sharedPreferencesHelper,
   );

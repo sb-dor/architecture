@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:architectures/data/services/user_services/user_service.dart';
 import 'package:architectures/models/user.dart';
+import 'package:architectures/utils/constants.dart';
 import 'package:architectures/utils/shared_preferences_helper.dart';
 
 final class UserLocalService implements IUserService {
@@ -10,6 +13,9 @@ final class UserLocalService implements IUserService {
 
   @override
   Future<User?> user() async {
-    return null;
+    final userJson = _sharedPreferencesHelper.getString(Constants.userKey);
+    if (userJson == null) return null;
+    final Map<String, dynamic> json = jsonDecode(userJson);
+    return User.fromJson(json);
   }
 }

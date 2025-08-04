@@ -1,11 +1,10 @@
 import 'package:architectures/models/booking_summary.dart';
 import 'package:architectures/runner/widgets/dependencies_scope.dart';
-import 'package:architectures/ui/booking/widgets/booking_widget.dart';
 import 'package:architectures/ui/common/themes/colors.dart';
 import 'package:architectures/ui/common/themes/dimens.dart';
 import 'package:architectures/ui/home/controller/home_controller.dart';
 import 'package:architectures/ui/home/widgets/home_title_widget.dart';
-import 'package:architectures/ui/search_from/widgets/search_form_widget.dart';
+import 'package:architectures/ui/search_form/widgets/search_form_widget.dart';
 import 'package:architectures/utils/date_format_start_end.dart';
 import 'package:flutter/material.dart';
 

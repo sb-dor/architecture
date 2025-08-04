@@ -3,8 +3,8 @@ import 'package:architectures/data/repositories/itinerary_config/itinerary_confi
 import 'package:architectures/data/services/continent/continent_service.dart';
 import 'package:architectures/data/services/itinerary_config_service/itinerary_config_service.dart';
 import 'package:architectures/runner/models/dependency_container.dart';
-import 'package:architectures/ui/search_from/controller/search_form_controller.dart';
-import 'package:architectures/ui/search_from/widgets/search_form_widget.dart';
+import 'package:architectures/ui/search_form/controller/search_form_controller.dart';
+import 'package:architectures/ui/search_form/widgets/search_form_widget.dart';
 import 'package:architectures/utils/internet_connection_checker_helper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

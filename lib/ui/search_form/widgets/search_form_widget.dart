@@ -1,10 +1,10 @@
 import 'package:architectures/runner/widgets/dependencies_scope.dart';
 import 'package:architectures/ui/common/themes/dimens.dart';
 import 'package:architectures/ui/common/ui/app_search_bar.dart';
-import 'package:architectures/ui/search_from/controller/search_form_controller.dart';
-import 'package:architectures/ui/search_from/widgets/search_form_continent_widget.dart';
-import 'package:architectures/ui/search_from/widgets/search_form_guests.dart';
-import 'package:architectures/ui/search_from/widgets/search_form_submit.dart';
+import 'package:architectures/ui/search_form/controller/search_form_controller.dart';
+import 'package:architectures/ui/search_form/widgets/search_form_continent_widget.dart';
+import 'package:architectures/ui/search_form/widgets/search_form_guests.dart';
+import 'package:architectures/ui/search_form/widgets/search_form_submit.dart';
 import 'package:flutter/material.dart';
 
 import 'search_form_date_widget.dart';

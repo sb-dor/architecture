@@ -27,7 +27,7 @@ import 'package:architectures/ui/booking/controller/booking_controller.dart';
 import 'package:architectures/ui/home/controller/home_controller.dart';
 import 'package:architectures/ui/logout/controllers/logout_controller.dart';
 import 'package:architectures/ui/results/controllers/result_controller.dart';
-import 'package:architectures/ui/search_from/controller/search_form_controller.dart';
+import 'package:architectures/ui/search_form/controller/search_form_controller.dart';
 import 'package:architectures/utils/internet_connection_checker_helper.dart';
 import 'package:architectures/utils/shared_preferences_helper.dart';
 import 'package:logger/logger.dart';

@@ -5,7 +5,7 @@
 import 'package:architectures/runner/widgets/dependencies_scope.dart';
 import 'package:architectures/ui/common/themes/dimens.dart';
 import 'package:architectures/ui/results/widgets/result_widget.dart';
-import 'package:architectures/ui/search_from/controller/search_form_controller.dart';
+import 'package:architectures/ui/search_form/controller/search_form_controller.dart';
 import 'package:flutter/material.dart';
 
 const String searchFormSubmitButtonKey = 'submit-button';

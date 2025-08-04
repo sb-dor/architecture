@@ -3,7 +3,7 @@ import 'package:architectures/runner/widgets/dependencies_scope.dart';
 import 'package:architectures/ui/common/themes/colors.dart';
 import 'package:architectures/ui/common/themes/dimens.dart';
 import 'package:architectures/ui/common/ui/error_indicator.dart';
-import 'package:architectures/ui/search_from/controller/search_form_controller.dart';
+import 'package:architectures/ui/search_form/controller/search_form_controller.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

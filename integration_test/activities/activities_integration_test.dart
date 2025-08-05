@@ -18,6 +18,7 @@ import '../../testing_data/temp_data/fake_activities.dart';
 import '../../testing_data/temp_data/fake_itinerary_config.dart';
 import 'activities_integration_test.mocks.dart';
 
+// https://stackoverflow.com/questions/68275811/is-there-a-way-to-let-mockito-generate-mocks-for-integration-tests-in-a-flutter
 @GenerateMocks([
   IActivitiesService,
   IItineraryConfigService,

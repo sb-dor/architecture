@@ -8,35 +8,15 @@ import 'package:architectures/ui/home/controller/home_controller.dart';
 import 'package:architectures/ui/home/widgets/home_widget.dart';
 import 'package:architectures/utils/internet_connection_checker_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:mockito/mockito.dart';
-import 'package:mockito/annotations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
+
 import '../../test/helpers/test_widget_controller.dart';
 import '../../testing_data/temp_data/fake_bookings.dart';
 import '../../testing_data/temp_data/fake_user.dart';
-import 'home_widget_test.mocks.dart';
 
-class TestAppWidget extends StatelessWidget {
-  const TestAppWidget({super.key, required this.dependencyContainer, required this.widget});
-
-  final DependencyContainer dependencyContainer;
-  final Widget widget;
-
-  @override
-  Widget build(BuildContext context) {
-    return DependenciesScope(dependencies: dependencyContainer, child: MaterialApp(home: widget));
-  }
-}
-
-final class HomeTestDependencyContainer extends TestDependencyContainer {
-  HomeTestDependencyContainer({required HomeController homeController})
-    : _homeController = homeController;
-
-  final HomeController _homeController;
-
-  @override
-  HomeController get homeController => _homeController;
-}
+import 'home_widget_integration_test.mocks.dart';
 
 @GenerateMocks([IBookingService, IUserService, InternetConnectionCheckerHelper])
 void main() {
@@ -131,4 +111,26 @@ void main() {
       expect(findOneDismissibleButton, findsOneWidget);
     });
   });
+}
+
+class TestAppWidget extends StatelessWidget {
+  const TestAppWidget({super.key, required this.dependencyContainer, required this.widget});
+
+  final DependencyContainer dependencyContainer;
+  final Widget widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return DependenciesScope(dependencies: dependencyContainer, child: MaterialApp(home: widget));
+  }
+}
+
+final class HomeTestDependencyContainer extends TestDependencyContainer {
+  HomeTestDependencyContainer({required HomeController homeController})
+    : _homeController = homeController;
+
+  final HomeController _homeController;
+
+  @override
+  HomeController get homeController => _homeController;
 }

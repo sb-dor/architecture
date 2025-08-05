@@ -16,7 +16,7 @@ final class UserRemoteService implements IUserService {
   @override
   Future<User?> user() async {
     final response = await _client.get(
-      Uri.parse('/user'),
+      Uri.parse('$mainUrl/user'),
       headers: {HttpHeaders.authorizationHeader: "Bearer ${Constants.token}"},
     );
     if (response.statusCode != 200) return null;

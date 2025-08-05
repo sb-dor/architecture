@@ -45,9 +45,7 @@ class _ActivitiesWidgetState extends State<ActivitiesWidget> {
               children: [
                 const ActivitiesHeader(),
                 if (_activitiesController.loading)
-                  const Expanded(
-                    child: Center(child: CircularProgressIndicator()),
-                  ),
+                  const Expanded(child: Center(child: CircularProgressIndicator())),
               ],
             );
           },
@@ -58,6 +56,7 @@ class _ActivitiesWidgetState extends State<ActivitiesWidget> {
                 children: [
                   Expanded(
                     child: CustomScrollView(
+                      key: ValueKey("scrollable_activities_list"),
                       slivers: [
                         const SliverToBoxAdapter(child: ActivitiesHeader()),
                         ActivitiesTitle(

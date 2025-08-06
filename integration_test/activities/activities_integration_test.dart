@@ -127,22 +127,6 @@ void main() {
   });
 }
 
-class ActivitiesIntegrationTestWidget extends StatelessWidget {
-  const ActivitiesIntegrationTestWidget({
-    super.key,
-    required this.dependencyContainer,
-    required this.widget,
-  });
-
-  final DependencyContainer dependencyContainer;
-  final Widget widget;
-
-  @override
-  Widget build(BuildContext context) {
-    return DependenciesScope(dependencies: dependencyContainer, child: widget);
-  }
-}
-
 final class TestDependenciesContainer extends TestDependencyContainer {
   TestDependenciesContainer({required ActivitiesController activitiesController})
     : _activitiesController = activitiesController;

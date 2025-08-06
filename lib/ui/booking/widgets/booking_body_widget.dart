@@ -24,7 +24,10 @@ class BookingBody extends StatelessWidget {
             SliverList(
               delegate: SliverChildBuilderDelegate((context, index) {
                 final activity = booking.activities[index];
-                return _Activity(activity: activity);
+                return _Activity(
+                  activity: activity,
+                  key: ValueKey<String>("booking_activity_${activity.ref}"),
+                );
               }, childCount: booking.activities.length),
             ),
             const SliverToBoxAdapter(child: SizedBox(height: 200)),
@@ -36,7 +39,7 @@ class BookingBody extends StatelessWidget {
 }
 
 class _Activity extends StatelessWidget {
-  const _Activity({required this.activity});
+  const _Activity({super.key, required this.activity});
 
   final Activity activity;
 
@@ -52,11 +55,7 @@ class _Activity extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
-            child: CachedNetworkImage(
-              imageUrl: activity.imageUrl,
-              height: 80,
-              width: 80,
-            ),
+            child: CachedNetworkImage(imageUrl: activity.imageUrl, height: 80, width: 80),
           ),
           const SizedBox(width: 20),
           Expanded(

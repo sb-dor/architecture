@@ -2,6 +2,7 @@ import 'package:architectures/data/repositories/activities/activities_repository
 import 'package:architectures/data/repositories/itinerary_config/itinerary_config_repository.dart';
 import 'package:architectures/data/services/activities/activities_service.dart';
 import 'package:architectures/data/services/itinerary_config_service/itinerary_config_service.dart';
+import 'package:architectures/models/itinerary_config.dart';
 import 'package:architectures/runner/models/dependency_container.dart';
 import 'package:architectures/ui/activities/controllers/activities_controller.dart';
 import 'package:architectures/ui/activities/widgets/activities_widget.dart';
@@ -28,6 +29,14 @@ final class TestActivitiesDependencyContainer extends TestDependencyContainer {
 
 @GenerateMocks([IActivitiesService, IItineraryConfigService, InternetConnectionCheckerHelper])
 void main() {
+  final fakedItineraryConfig = ItineraryConfig(
+      continent: 'Europe',
+      startDate: DateTime(2024, 01, 01),
+      endDate: DateTime(2024, 01, 31),
+      guests: 2,
+      destination: 'DESTINATION',
+      activities: []
+  );
   late final MockIActivitiesService mockIActivitiesRemoteService;
   late final MockIActivitiesService mockIActivitiesLocalService;
   late final MockIItineraryConfigService mockIItineraryConfigService;
@@ -64,7 +73,7 @@ void main() {
 
       when(
         mockIItineraryConfigService.getItineraryConfig(),
-      ).thenAnswer((_) async => fakeItineraryConfig);
+      ).thenAnswer((_) async => fakedItineraryConfig);
 
       when(mockIActivitiesRemoteService.getByDestination(any)).thenAnswer((_) async => [kActivity]);
 
@@ -95,7 +104,7 @@ void main() {
 
       when(
         mockIItineraryConfigService.getItineraryConfig(),
-      ).thenAnswer((_) async => fakeItineraryConfig);
+      ).thenAnswer((_) async => fakedItineraryConfig);
 
       when(mockIActivitiesRemoteService.getByDestination(any)).thenAnswer((_) async => [kActivity]);
 

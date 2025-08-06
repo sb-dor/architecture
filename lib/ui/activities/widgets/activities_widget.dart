@@ -110,12 +110,13 @@ class _BottomArea extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                activitiesController.selectedActivities.isEmpty
-                    ? "No Selected Items"
-                    : "${activitiesController.selectedActivities.length} selected",
-                style: Theme.of(context).textTheme.labelLarge,
-              ),
+              if (activitiesController.selectedActivities.isEmpty)
+                Text("No Selected Items", style: Theme.of(context).textTheme.labelLarge)
+              else
+                Text(
+                  "${activitiesController.selectedActivities.length} selected",
+                  style: Theme.of(context).textTheme.labelLarge,
+                ),
               FilledButton(
                 key: const Key(confirmButtonKey),
                 onPressed: () async {

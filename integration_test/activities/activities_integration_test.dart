@@ -2,6 +2,7 @@ import 'package:architectures/data/repositories/activities/activities_repository
 import 'package:architectures/data/repositories/itinerary_config/itinerary_config_repository.dart';
 import 'package:architectures/data/services/activities/activities_service.dart';
 import 'package:architectures/data/services/itinerary_config_service/itinerary_config_service.dart';
+import 'package:architectures/models/itinerary_config.dart';
 import 'package:architectures/runner/models/dependency_container.dart';
 import 'package:architectures/runner/widgets/dependencies_scope.dart';
 import 'package:architectures/ui/activities/controllers/activities_controller.dart';
@@ -26,6 +27,14 @@ import 'activities_integration_test.mocks.dart';
   IItineraryConfigRepository,
 ])
 void main() {
+  final fakedItineraryConfig = ItineraryConfig(
+    continent: 'Europe',
+    startDate: DateTime(2024, 01, 01),
+    endDate: DateTime(2024, 01, 31),
+    guests: 2,
+    destination: 'DESTINATION',
+    activities: [],
+  );
   late final MockIActivitiesService mockIActivitiesRemoteService;
   late final MockIActivitiesService mockIActivitiesLocalService;
   late final MockIItineraryConfigService mockIItineraryConfigService;
@@ -63,12 +72,12 @@ void main() {
 
   group('Activities integration test', () {
     //
-    testWidgets('description', (tester) async {
+    testWidgets('Testing activities widget - overall', (tester) async {
       when(mockInternetConnectionCheckerHelper.hasAccessToInternet()).thenAnswer((_) async => true);
 
       when(
         mockIItineraryConfigService.getItineraryConfig(),
-      ).thenAnswer((_) async => fakeItineraryConfig);
+      ).thenAnswer((_) async => fakedItineraryConfig);
 
       when(
         mockIActivitiesRemoteService.getByDestination(any),
@@ -81,7 +90,7 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      // find list
+      // find list - is not necessary
       final findScrollableList = find.byKey(ValueKey<String>("scrollable_activities_list"));
 
       // find all widgets that are rendered inside list
@@ -89,20 +98,27 @@ void main() {
         (el) =>
             el.key != null &&
             el.key is ValueKey<String> &&
-            (el.key as ValueKey<String>).value.contains("activities_item_"),
+            (el.key as ValueKey<String>).value.contains("activity_checkbox_"),
       );
+
+      final findNoSelectedItemsTest = find.text("No Selected Items");
 
       expect(findListWidgets, findsWidgets);
       expect(findScrollableList, findsOneWidget);
+      expect(findNoSelectedItemsTest, findsOneWidget);
 
       for (final each in fakeActivities) {
-        final activityWidget = find.byKey(ValueKey<String>("activities_item_${each.ref}"));
-        expect(activityWidget, findsOneWidget);
+        final activityWidget = find.byKey(ValueKey<String>("activity_checkbox_${each.ref}"));
         await tester.ensureVisible(activityWidget);
-        await tester.pumpAndSettle();
         await tester.tap(activityWidget);
+        await tester.pumpAndSettle();
       }
 
+      final findSeveralSelectedText = find.text(
+        "${activitiesController.selectedActivities.length} selected",
+      );
+
+      expect(findSeveralSelectedText, findsOne);
       expect(activitiesController.selectedActivities, isNotEmpty);
       verify(mockInternetConnectionCheckerHelper.hasAccessToInternet()).called(1);
       verify(mockIActivitiesRemoteService.getByDestination(any)).called(1);

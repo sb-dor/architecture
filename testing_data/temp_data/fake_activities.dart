@@ -19,7 +19,8 @@ final fakeActivities = [
     destinationRef: 'dest_001',
     duration: 2,
     familyFriendly: true,
-    imageUrl: 'https://example.com/hike.jpg',
+    imageUrl:
+        'https://storage.googleapis.com/tripedia-images/activities/alaska_glacier-trekking-and-ice-climbing.jpg',
     locationName: 'Green Valley Trail',
     name: 'Nature Hike',
     price: 0,
@@ -31,7 +32,8 @@ final fakeActivities = [
     destinationRef: 'dest_002',
     duration: 1,
     familyFriendly: true,
-    imageUrl: 'https://example.com/museum.jpg',
+    imageUrl:
+        'https://storage.googleapis.com/tripedia-images/activities/alaska_wildlife-viewing-cruise.jpg',
     locationName: 'City History Museum',
     name: 'Museum Tour',
     price: 5,
@@ -43,7 +45,8 @@ final fakeActivities = [
     destinationRef: 'dest_003',
     duration: 4,
     familyFriendly: false,
-    imageUrl: 'https://example.com/climbing.jpg',
+    imageUrl:
+        'https://storage.googleapis.com/tripedia-images/activities/alaska_dog-sledding-experience.jpg',
     locationName: 'Rocky Peaks',
     name: 'Mountain Climbing',
     price: 20,
@@ -55,7 +58,8 @@ final fakeActivities = [
     destinationRef: 'dest_004',
     duration: 2,
     familyFriendly: true,
-    imageUrl: 'https://example.com/boat.jpg',
+    imageUrl:
+        'https://storage.googleapis.com/tripedia-images/activities/alaska_hiking-in-denali-national-park.jpg',
     locationName: 'Sunset Lake',
     name: 'Sunset Boat Ride',
     price: 10,
@@ -67,7 +71,8 @@ final fakeActivities = [
     destinationRef: 'dest_005',
     duration: 5,
     familyFriendly: true,
-    imageUrl: 'https://example.com/waterpark.jpg',
+    imageUrl:
+        'https://storage.googleapis.com/tripedia-images/activities/alaska_northern-lights-viewing.jpg',
     locationName: 'Splash World',
     name: 'Water Park Day',
     price: 15,

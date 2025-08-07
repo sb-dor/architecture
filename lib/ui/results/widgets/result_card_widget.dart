@@ -5,11 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ResultCardWidget extends StatelessWidget {
-  const ResultCardWidget({
-    super.key,
-    required this.destination,
-    required this.onTap,
-  });
+  const ResultCardWidget({super.key, required this.destination, required this.onTap});
 
   final Destination destination;
   final GestureTapCallback onTap;
@@ -40,8 +36,7 @@ class ResultCardWidget extends StatelessWidget {
                   spacing: 4.0,
                   runSpacing: 4.0,
                   direction: Axis.horizontal,
-                  children:
-                      destination.tags.map((e) => TagChip(tag: e)).toList(),
+                  children: destination.tags.map((e) => TagChip(tag: e)).toList(),
                 ),
               ],
             ),
@@ -50,7 +45,10 @@ class ResultCardWidget extends StatelessWidget {
           Positioned.fill(
             child: Material(
               color: Colors.transparent,
-              child: InkWell(onTap: onTap),
+              child: InkWell(
+                key: ValueKey('results_card_widget_inkwell_${destination.ref}'),
+                onTap: onTap,
+              ),
             ),
           ),
         ],

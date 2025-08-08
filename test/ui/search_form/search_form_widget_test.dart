@@ -6,7 +6,6 @@ import 'package:architectures/runner/models/dependency_container.dart';
 import 'package:architectures/ui/search_form/controller/search_form_controller.dart';
 import 'package:architectures/ui/search_form/widgets/search_form_widget.dart';
 import 'package:architectures/utils/internet_connection_checker_helper.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logger/logger.dart';

@@ -4,7 +4,6 @@ import 'package:architectures/data/services/activities/activities_service.dart';
 import 'package:architectures/data/services/itinerary_config_service/itinerary_config_service.dart';
 import 'package:architectures/models/itinerary_config.dart';
 import 'package:architectures/runner/models/dependency_container.dart';
-import 'package:architectures/runner/widgets/dependencies_scope.dart';
 import 'package:architectures/ui/activities/controllers/activities_controller.dart';
 import 'package:architectures/ui/activities/widgets/activities_widget.dart';
 import 'package:architectures/utils/internet_connection_checker_helper.dart';
@@ -16,7 +15,6 @@ import 'package:mockito/mockito.dart';
 
 import '../../test/helpers/test_widget_controller.dart';
 import '../../testing_data/temp_data/fake_activities.dart';
-import '../../testing_data/temp_data/fake_itinerary_config.dart';
 import 'activities_integration_test.mocks.dart';
 
 // https://stackoverflow.com/questions/68275811/is-there-a-way-to-let-mockito-generate-mocks-for-integration-tests-in-a-flutter

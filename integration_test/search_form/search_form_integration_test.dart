@@ -13,9 +13,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../test/helpers/test_widget_controller.dart';
-import '../../test/ui/search_form/search_form_widget_test.dart';
 import '../../testing_data/temp_data/fake_continents.dart';
-import '../../testing_data/temp_data/fake_itinerary_config.dart';
 import 'search_form_integration_test.mocks.dart';
 
 @GenerateMocks([IContinentService, InternetConnectionCheckerHelper, IItineraryConfigService])

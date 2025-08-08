@@ -13,7 +13,6 @@ import 'package:logger/logger.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import '../../../testing_data/temp_data/fake_activities.dart';
-import '../../../testing_data/temp_data/fake_itinerary_config.dart';
 import '../../helpers/test_widget_controller.dart';
 import 'activities_widget_test.mocks.dart';
 

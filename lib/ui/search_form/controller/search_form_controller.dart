@@ -2,7 +2,6 @@ import 'package:architectures/data/repositories/continent/continent_repository.d
 import 'package:architectures/data/repositories/itinerary_config/itinerary_config_repository.dart';
 import 'package:architectures/models/continent.dart';
 import 'package:architectures/models/itinerary_config.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 

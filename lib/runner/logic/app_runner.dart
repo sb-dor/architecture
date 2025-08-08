@@ -17,7 +17,7 @@ class AppRunner {
         try {
           final dependencies = await composeDependencies(logger: logger);
           runApp(MaterialContext(dependencyContainer: dependencies));
-        } catch (error, stackTrace) {
+        } catch (error) {
           rethrow;
         } finally {
           widgetBinding.allowFirstFrame();

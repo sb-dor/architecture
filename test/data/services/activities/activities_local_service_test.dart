@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:architectures/data/repositories/activities/activities_repository.dart';
 import 'package:architectures/data/services/activities/activities_service.dart';
 import 'package:architectures/models/activity.dart';
 import 'package:architectures/utils/shared_preferences_helper.dart';

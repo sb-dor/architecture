@@ -4,6 +4,7 @@ import 'package:architectures/ui/common/themes/colors.dart';
 import 'package:architectures/ui/common/themes/dimens.dart';
 import 'package:architectures/ui/home/controller/home_controller.dart';
 import 'package:architectures/ui/home/widgets/home_title_widget.dart';
+import 'package:architectures/ui/logout/widgets/logout_button_widget.dart';
 import 'package:architectures/ui/search_form/widgets/search_form_widget.dart';
 import 'package:architectures/utils/date_format_start_end.dart';
 import 'package:flutter/material.dart';
@@ -45,6 +46,7 @@ class _HomeWidgetState extends State<HomeWidget> {
         title: Text("Home"),
         scrolledUnderElevation: 0.0,
         elevation: 0,
+        actions: [LogoutButton()],
       ),
       body: SafeArea(
         child: ListenableBuilder(
@@ -96,11 +98,7 @@ class _HomeWidgetState extends State<HomeWidget> {
 }
 
 class _Booking extends StatelessWidget {
-  const _Booking({
-    required this.booking,
-    required this.onTap,
-    required this.confirmDismiss,
-  });
+  const _Booking({required this.booking, required this.onTap, required this.confirmDismiss});
 
   final BookingSummary booking;
   final GestureTapCallback onTap;
@@ -136,9 +134,7 @@ class _Booking extends StatelessWidget {
             children: [
               Text(booking.name, style: Theme.of(context).textTheme.titleLarge),
               Text(
-                dateFormatStartEnd(
-                  DateTimeRange(start: booking.startDate, end: booking.endDate),
-                ),
+                dateFormatStartEnd(DateTimeRange(start: booking.startDate, end: booking.endDate)),
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
             ],

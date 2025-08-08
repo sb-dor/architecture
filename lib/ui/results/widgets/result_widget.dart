@@ -2,7 +2,6 @@ import 'package:architectures/runner/widgets/dependencies_scope.dart';
 import 'package:architectures/ui/activities/widgets/activities_widget.dart';
 import 'package:architectures/ui/common/themes/dimens.dart';
 import 'package:architectures/ui/common/ui/app_search_bar.dart';
-import 'package:architectures/ui/common/ui/error_indicator.dart';
 import 'package:architectures/ui/results/controllers/result_controller.dart';
 import 'package:architectures/ui/results/widgets/result_card_widget.dart';
 import 'package:flutter/material.dart';

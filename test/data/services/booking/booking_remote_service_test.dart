@@ -2,12 +2,10 @@ import 'dart:convert';
 
 import 'package:architectures/data/services/booking/booking_remote_service.dart';
 import 'package:architectures/data/services/booking/booking_service.dart';
-import 'package:architectures/models/booking.dart';
 import 'package:architectures/models/booking_summary.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart' as http_testing;
-import 'package:mockito/mockito.dart';
 
 import '../../../../testing_data/temp_data/fake_bookings.dart';
 

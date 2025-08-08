@@ -1,5 +1,4 @@
 import 'package:architectures/models/booking.dart';
-import 'package:architectures/models/destination.dart';
 import 'package:architectures/ui/common/themes/colors.dart';
 import 'package:architectures/ui/common/themes/dimens.dart';
 import 'package:architectures/ui/common/ui/home_button.dart';

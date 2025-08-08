@@ -46,6 +46,7 @@ class _LogoutButtonState extends State<LogoutButton> {
           color: Colors.transparent,
         ),
         child: InkResponse(
+          key: ValueKey<String>("logout_button"),
           borderRadius: BorderRadius.circular(8.0),
           onTap: () {
             _logoutController.logout(onLogoutError: _onLogoutError);
@@ -54,7 +55,7 @@ class _LogoutButtonState extends State<LogoutButton> {
             listenable: _logoutController,
             builder: (context, child) {
               if (_logoutController.isLoggingOut) {
-                return Center(child: CircularProgressIndicator(),);
+                return Center(child: CircularProgressIndicator());
               }
               return child!;
             },

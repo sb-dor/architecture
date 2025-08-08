@@ -29,8 +29,7 @@ class SearchFormController extends ChangeNotifier {
   bool completed = false;
 
   /// True if the form is valid and can be submitted
-  bool get valid =>
-      _guests > 0 && _selectedContinent != null && _dateRange != null;
+  bool get valid => _guests > 0 && _selectedContinent != null && _dateRange != null;
 
   /// List of continents.
   /// Loaded in [load] command.
@@ -104,18 +103,23 @@ class SearchFormController extends ChangeNotifier {
   }
 
   Future<void> loadItineraryConfig() async {
-    final itineraryConfig =
-        await _itineraryConfigRepository.getItineraryConfig();
+    final itineraryConfig = await _itineraryConfigRepository.getItineraryConfig();
 
     _selectedContinent = itineraryConfig.continent;
     if (itineraryConfig.startDate != null && itineraryConfig.endDate != null) {
-      _dateRange = DateTimeRange(
-        start: itineraryConfig.startDate!,
-        end: itineraryConfig.endDate!,
-      );
+      _dateRange = DateTimeRange(start: itineraryConfig.startDate!, end: itineraryConfig.endDate!);
     }
     _guests = itineraryConfig.guests ?? 0;
     _logger.log(Level.debug, 'ItineraryConfig loaded');
+    _continents.clear();
+    if (_selectedContinent != null) {
+      _continents.add(
+        Continent(
+          name: _selectedContinent!,
+          imageUrl: "https://storage.googleapis.com/tripedia-images/destinations/alaska.jpg",
+        ),
+      );
+    }
     notifyListeners();
   }
 

@@ -23,7 +23,7 @@ final class BookingRemoteService implements IBookingService {
       body: jsonEncode(booking.toJson()),
     );
     print("coming requst create booking: ${request.body}");
-    if (request.statusCode == 200) {
+    if (request.statusCode == 201) {
       final booking = BookingSummary.fromJson(jsonDecode(request.body));
       return true;
     }

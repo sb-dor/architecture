@@ -20,16 +20,11 @@ class Booking {
     id: json['id'] as int?,
     startDate: DateTime.parse(json['startDate'] as String),
     endDate: DateTime.parse(json['endDate'] as String),
-    destination:
-        json['destination'] == null
-            ? null
-            : Destination.fromJson(json['destination']),
+    destination: json['destination'] == null ? null : Destination.fromJson(json['destination']),
     activities:
         json['activities'] == null
             ? []
-            : (json['activities'] as List)
-                .map((e) => Activity.fromJson(e))
-                .toList(),
+            : (json['activities'] as List).map((e) => Activity.fromJson(e)).toList(),
   );
 
   Map<String, dynamic> toJson() => {
@@ -40,4 +35,9 @@ class Booking {
     'destinationRef': destination?.ref, // вместо destination.toJson()
     'activitiesRef': activities.map((e) => e.ref).toList(), // вместо .toJson()
   };
+
+  @override
+  String toString() {
+    return 'Booking{id: $id, startDate: $startDate, endDate: $endDate, destination: $destination, activities: $activities}';
+  }
 }

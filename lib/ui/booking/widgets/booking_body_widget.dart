@@ -17,7 +17,7 @@ class BookingBody extends StatelessWidget {
       listenable: bookingController,
       builder: (context, _) {
         final booking = bookingController.booking;
-        if (booking == null) return const SizedBox();
+        if (booking == null) return const Center(child: Text("Emtpy booking"));
         return CustomScrollView(
           slivers: [
             SliverToBoxAdapter(child: BookingHeader(booking: booking)),

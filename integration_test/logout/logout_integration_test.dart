@@ -58,7 +58,6 @@ void main() {
       expect(findButton, findsOneWidget);
 
       await tester.tap(findButton);
-      await tester.pumpAndSettle();
 
       verify(mockInternetConnectionCheckerHelper.hasAccessToInternet()).called(1);
       verify(mockIAuthRemoteService.logout()).called(1);
